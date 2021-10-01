@@ -6,8 +6,10 @@
         $this->smarty = new Smarty();
 
     }
-    function Home(){
-        $this->assign('producto', $producto)
-        $this->smarty->display('templates/header.tpl');
+    function Home($producto){ 
+        
+        $this->smarty->assign('producto', $producto);
+        $this->smarty->display('templates/home.tpl');
+       
     }
  }

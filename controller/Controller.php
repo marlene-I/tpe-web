@@ -9,7 +9,7 @@ class Controlador{
         $this->view = new View(); 
     }
     function renderHome(){
-        $productos = $this->model->obtenerDatos();
-        $this->view->Home();
+        $producto = $this->model->obtenerDatos();
+        $this->view->Home($producto);
     }
 }

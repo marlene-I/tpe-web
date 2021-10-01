@@ -21,5 +21,5 @@ switch ($params[0]) {
     
     default:
         # code...
-        break;
+    break;
 }

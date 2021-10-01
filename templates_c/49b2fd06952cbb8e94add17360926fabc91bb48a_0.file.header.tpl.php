@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-10-01 17:43:17
+/* Smarty version 3.1.39, created on 2021-10-01 18:09:21
   from 'D:\xampp\htdocs\proyectos\WEB2\TPE\templates\header.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_61572c95e31456_70656358',
+  'unifunc' => 'content_615732b10d5559_37058434',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '49b2fd06952cbb8e94add17360926fabc91bb48a' => 
     array (
       0 => 'D:\\xampp\\htdocs\\proyectos\\WEB2\\TPE\\templates\\header.tpl',
-      1 => 1633102996,
+      1 => 1633103045,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61572c95e31456_70656358 (Smarty_Internal_Template $_smarty_tpl) {
+function content_615732b10d5559_37058434 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,8 +30,7 @@ function content_61572c95e31456_70656358 (Smarty_Internal_Template $_smarty_tpl)
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    
-    
+
     <title>Document</title>
 </head>
 <body>
@@ -46,7 +45,5 @@ function content_61572c95e31456_70656358 (Smarty_Internal_Template $_smarty_tpl)
         </nav>
     </header>
     
-</body>
-
-</html><?php }
+<?php }
 }
