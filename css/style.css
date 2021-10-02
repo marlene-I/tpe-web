@@ -1,3 +1,19 @@
-li{
-    color: aliceblue;
+.contendor-nav ul li ul{
+    list-style: none;
+}
+.contendor-nav ul li ul{ 
+    display: none;    
+    position: absolute;
+    width: 150px;
+}
+.contendor-nav ul li:hover >ul { 
+    display: block;
+}
+.contendor-nav ul li ul li{ 
+    border: 1px solid rgb(26, 8, 187);
+    background-color: rgba(1, 2, 5, 0.966);    
+}
+
+.contendor-nav ul li ul li a:hover{ 
+    color:rgb(171, 157, 207); 
 }

@@ -11,7 +11,7 @@
             {foreach from=$producto item=productos}
                     <tr>
                         <td>{$productos->nombre_producto}</td>
-                        <td>{$productos->precio_producto}</td>
+                        <td>${$productos->precio_producto}</td>
                          <td>{$productos->nombre_categoria}</td>
                     </tr>
             {/foreach}

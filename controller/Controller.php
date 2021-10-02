@@ -8,8 +8,17 @@ class Controlador{
         $this->model=new Model();
         $this->view = new View(); 
     }
-    function renderHome(){
-        $producto = $this->model->obtenerDatos();
-        $this->view->Home($producto);
+
+    function renderHome(){   
+        $producto = $this->model->obtenerTodosLosDatos();
+        $categoria = $this->model->obtenerSoloCategorias();
+     
+        $this->view->Home($producto, $categoria);
+    }
+    function filtradoCategorias($categoria){
+        $categorias= $this->model->obtenerSoloCategorias();
+        $filtroCategorias = $this->model->filtrarCategorias($categoria);
+        $this->view->Home($filtroCategorias, $categorias);
+       
     }
 }

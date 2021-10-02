@@ -16,9 +16,12 @@ $params = explode('/', $action);
 
 switch ($params[0]) {
     case 'home':
-        $controller->renderHome();
+        $controller->renderHome(); 
+        
     break;
-    
+    case 'nombre_categoria':
+       $controller->filtradoCategorias($params[1]);
+    break;
     default:
         # code...
     break;
