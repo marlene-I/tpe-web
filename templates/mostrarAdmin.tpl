@@ -13,8 +13,10 @@
                     <tr>
                         <td>{$producto->nombre_producto}</td>
                         <td>${$producto->precio_producto}</td>
-                         <td>{$producto->nombre_categoria}</td>
-                         <td><a href="detalleProducto/{$producto->id_productos}">Ver detalle</a></td>
+                        <td>{$producto->nombre_categoria}</td>
+                        <td><a href="detalleProducto/{$producto->id_productos}">Ver detalle</a></td>
+                        <td><a href="detalleProducto/{$producto->id_productos}">Eliminar</a></td>
+                        <td><a href="detalleProducto/{$producto->id_productos}">Modificar</a></td>
                     </tr>
             {/foreach}
         </tbody>    

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-10-02 23:37:30
+/* Smarty version 3.1.39, created on 2021-10-09 21:28:45
   from 'D:\xampp\htdocs\proyectos\WEB2\tpe-web\templates\header.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_6158d11a65f065_51775628',
+  'unifunc' => 'content_6161ed6d8710e1_06140936',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1b841e700d6add7e8ee2a5b14a15e74fdab1af72' => 
     array (
       0 => 'D:\\xampp\\htdocs\\proyectos\\WEB2\\tpe-web\\templates\\header.tpl',
-      1 => 1633210647,
+      1 => 1633807569,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6158d11a65f065_51775628 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6161ed6d8710e1_06140936 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +38,7 @@ function content_6158d11a65f065_51775628 (Smarty_Internal_Template $_smarty_tpl)
         <nav>
             <div class="contendor-nav">   
                 <ul class="navbar navbar-dark bg-dark">
-                    </li> <li class="nav-item"><a href="" class="nav-link">Home</a> </li>
+                    </li> <li class="nav-item"><a href="" class="nav-link">Home</a></li>
                     <li class="nav-item"><a href="" class="nav-link">Menu</a></li>
                     <li class="nav-item"><a href="" class="nav-link">Categorias</a>
                         <ul class="submenu-categorias">
@@ -54,10 +54,9 @@ $_smarty_tpl->tpl_vars['categoria']->do_else = false;
                             <?php
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
-
-                        </ul>
-                  
+                        </ul>    
                     <li class="nav-item"><a href="" class="nav-link">Login</a></li>
+                    </li><li class="nav-item"><a href="admin" class="nav-link">Admin</a></li>
                 </ul> 
             </div>
         </nav>

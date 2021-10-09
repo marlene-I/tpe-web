@@ -14,17 +14,16 @@
         <nav>
             <div class="contendor-nav">   
                 <ul class="navbar navbar-dark bg-dark">
-                    </li> <li class="nav-item"><a href="" class="nav-link">Home</a> </li>
+                    </li> <li class="nav-item"><a href="" class="nav-link">Home</a></li>
                     <li class="nav-item"><a href="" class="nav-link">Menu</a></li>
                     <li class="nav-item"><a href="" class="nav-link">Categorias</a>
                         <ul class="submenu-categorias">
                            {foreach from=$categorias item=categoria}
                             <li class="nav-item"><a href="nombre_categoria/{$categoria->nombre}" class="nav-link">{$categoria->nombre}</a></li>
                             {/foreach}
-
-                        </ul>
-                  
+                        </ul>    
                     <li class="nav-item"><a href="" class="nav-link">Login</a></li>
+                    </li><li class="nav-item"><a href="admin" class="nav-link">Admin</a></li>
                 </ul> 
             </div>
         </nav>

@@ -27,4 +27,12 @@ class Model{
         $categoria = $query->fetchAll(PDO::FETCH_OBJ);
         return $categoria;
     }
+    function agregar($producto,$precio, $detalle, $categoria){
+        $db = new PDO('mysql:host=localhost;'.'dbname=db_bares;charset=utf8', 'root', '');
+
+        $query = $db->prepare('INSERT INTO producto(nombre_producto,precio_producto, detalle, id_categorias_fk) VALUES (?,?,?,?)');
+        $query->execute([$producto,$precio,$detalle, $categoria]);
+        return $db->lastInsertId();
+    }
+
 }
