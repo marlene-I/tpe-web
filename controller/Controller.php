@@ -34,12 +34,15 @@ class Controlador{
         var_dump($categoria);
         $this->model->agregar($producto, $precio, $detalle, $categoria);
      
-        header("Location: ". BASE_URL); 
+        header("Location: ". BASE_URL."admin"); 
+
     }
     function borrardatos($id){
         $borrar = $this->model->borrar($id);
         $this->view->borrarr($borrar);      
         $this->seccionAdmin();
+        header("Location: ". BASE_URL."admin"); 
+
     }
     function modificar($id){
         $categorias = $this->model->obtenerSoloCategorias();
