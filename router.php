@@ -30,6 +30,12 @@ switch ($params[0]) {
     case 'agregar':
         $controller->agregar();
     break;
+    case 'borrar':
+        $controller->borrardatos($params[1]);
+    break;
+    case 'modificar':
+        $controller->modificar($params[1]);
+    break;
     default:
         # code...
     break;

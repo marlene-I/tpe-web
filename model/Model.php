@@ -34,5 +34,28 @@ class Model{
         $query->execute([$producto,$precio,$detalle, $categoria]);
         return $db->lastInsertId();
     }
+ /*   function obtenerCategorias(){
+        $db = new PDO('mysql:host=localhost;'.'dbname=db_bares;charset=utf8', 'root', '');
+       $query = $db->prepare('SELECT categoria.* FROM categoria');
+       $query->execute();
+       $categoria = $query->fetchAll(PDO::FETCH_OBJ);
+
+       return $categoria;
+    }*/
+    function borrar($id) {
+        $db = new PDO('mysql:host=localhost;'.'dbname=db_bares;charset=utf8', 'root', '');
+    
+        $query = $db->prepare('DELETE FROM producto WHERE id_productos=?');
+        return $query->execute([$id]);
+    }
+
+    function modificar($nombre, $profesor, $carrera,$id) {
+        
+        $db = new PDO('mysql:host=localhost;'.'dbname=db_materias;charset=utf8', 'root', '');
+        //para modificar la tabla fuerte uso el comentado
+       // $query = $db->prepare('UPDATE `materia` INNER JOIN `carrera` ON `materia`.`id_materias` = `carrera`.`id` SET `nombre` = ?, `profesor` = ? `id_materias`= ? WHERE `materia`.`id` = ? ');
+       $query = $db->prepare('UPDATE `producto` SET `nombre_producto` = ?, `precio_producto` = ?,`detalle` = ?, `id_producto` = ? WHERE `producto`.`id_producto` = ?;');
+        return $query->execute([$nombre, $profesor, $carrera,$id]);
+    }
 
 }

@@ -36,4 +36,24 @@ class Controlador{
      
         header("Location: ". BASE_URL); 
     }
+    function borrardatos($id){
+        $borrar = $this->model->borrar($id);
+        $this->view->borrarr($borrar);      
+        $this->seccionAdmin();
+    }
+    function modificar($id){
+        $categorias = $this->model->obtenerSoloCategorias();
+        $this->view->datos($id, $categorias);
+     }
+     function confirmform(){
+         $producto = $_REQUEST['producto'];
+         $precio = $_REQUEST['precio'];
+         $detalle = $_REQUEST['detalle'];
+         $categoria = $_GET['categoria'];
+         $id = $_REQUEST['id_producto'];
+         $modificar = $this->model->modificar($nombre, $profesor,$carrera,$id);
+         if($modificar){
+             header("Location: " . BASE_URL);
+         }
+     }
 }

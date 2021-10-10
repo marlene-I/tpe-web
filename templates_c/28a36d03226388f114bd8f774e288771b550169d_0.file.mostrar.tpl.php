@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-10-09 20:53:45
+/* Smarty version 3.1.39, created on 2021-10-10 02:46:18
   from 'D:\xampp\htdocs\proyectos\WEB2\tpe-web\templates\mostrar.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_6161e539e72846_63538157',
+  'unifunc' => 'content_616237da1fdb63_06121767',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '28a36d03226388f114bd8f774e288771b550169d' => 
     array (
       0 => 'D:\\xampp\\htdocs\\proyectos\\WEB2\\tpe-web\\templates\\mostrar.tpl',
-      1 => 1633805622,
+      1 => 1633826776,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6161e539e72846_63538157 (Smarty_Internal_Template $_smarty_tpl) {
+function content_616237da1fdb63_06121767 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="container">
     <table class="table table-hover">
         <thead>
@@ -46,7 +46,7 @@ $_smarty_tpl->tpl_vars['producto']->do_else = false;
                          <td><?php echo $_smarty_tpl->tpl_vars['producto']->value->nombre_categoria;?>
 </td>
                          <td><a href="detalleProducto/<?php echo $_smarty_tpl->tpl_vars['producto']->value->id_productos;?>
-">Ver detalle</a></td>
+" class = "btn btn-outline-danger">Ver detalle</a></td>
                     </tr>
             <?php
 }

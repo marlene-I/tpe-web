@@ -15,4 +15,19 @@
         $this->smarty->assign('productos', $producto);
         $this->smarty->display('admin.tpl');
     }
+    function borrarr($borrar){
+        if ($borrar){
+            header("Location: " . BASE_URL);
+         }
+         else {
+             echo"error";
+         }
+    }
+    function datos($categorias, $id){
+  
+        $this->smarty->assign('categorias', $categorias);
+        $this->smarty->assign('id', $id);
+        $this->smarty->display('templates/modificar.tpl');
+    }
+
 }
