@@ -23,7 +23,7 @@
              echo"error";
          }
     }
-    function datos($categorias, $id){
+    function datos($id,$categorias){
   
         $this->smarty->assign('categorias', $categorias);
         $this->smarty->assign('id', $id);

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-10-10 23:40:39
+/* Smarty version 3.1.39, created on 2021-10-11 22:52:16
   from 'C:\xampp\htdocs\WEB II\tpe-web\templates\mostrar.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_61635dd7519742_32874609',
+  'unifunc' => 'content_6164a4009b4951_05924324',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6c021d5c98cc348c69381c8f7c9927373c5b64af' => 
     array (
       0 => 'C:\\xampp\\htdocs\\WEB II\\tpe-web\\templates\\mostrar.tpl',
-      1 => 1633901345,
+      1 => 1633985521,
       2 => 'file',
     ),
   ),
@@ -20,14 +20,14 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61635dd7519742_32874609 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6164a4009b4951_05924324 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="container">
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>producto</th>
-                <th>precio</th>
-                <th>categoria</th>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Categoria</th>
                 <th>Acciones</th>
             </tr>
         </thead>

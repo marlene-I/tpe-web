@@ -49,13 +49,14 @@ class Model{
         return $query->execute([$id]);
     }
 
-    function modificar($nombre, $profesor, $carrera,$id) {
+    function modificar($producto, $precio, $detalle,$id,$categoria) {
         
-        $db = new PDO('mysql:host=localhost;'.'dbname=db_materias;charset=utf8', 'root', '');
+        $db = new PDO('mysql:host=localhost;'.'dbname=db_bares;charset=utf8', 'root', '');
         //para modificar la tabla fuerte uso el comentado
-       // $query = $db->prepare('UPDATE `materia` INNER JOIN `carrera` ON `materia`.`id_materias` = `carrera`.`id` SET `nombre` = ?, `profesor` = ? `id_materias`= ? WHERE `materia`.`id` = ? ');
-       $query = $db->prepare('UPDATE `producto` SET `nombre_producto` = ?, `precio_producto` = ?,`detalle` = ?, `id_producto` = ? WHERE `producto`.`id_producto` = ?;');
-        return $query->execute([$nombre, $profesor, $carrera,$id]);
+       // $query = $db->prepare('UPDATE `materia` INNER JOIN `detalle` ON `materia`.`id_materias` = `detalle{`.`id` SET `nombre` = ?, `precio` = ? `id_materias`= ? WHERE `materia`.`id` = ? ');
+       /* $query = $db->prepare('UPDATE `producto` SET `nombre_producto` = ?, `precio_producto` = ?,`detalle` = ?, `id_producto` = ?, `id_categorias_fk` WHERE `producto`.`id_producto` = ?;'); */
+       $query = $db->prepare('UPDATE `producto` SET `nombre_producto` = ?, `detalle` = ?, `precio_producto` = ?, `id_categorias_fk` = ? WHERE `producto`.`id_productos` = ?;'); 
+        return $query->execute([$producto, $detalle, $precio,$categoria,$id]);
     }
 
 }

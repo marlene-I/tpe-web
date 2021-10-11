@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-10-10 23:55:13
+/* Smarty version 3.1.39, created on 2021-10-11 06:05:51
   from 'C:\xampp\htdocs\WEB II\tpe-web\templates\agregar.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_616361412e01c9_85604167',
+  'unifunc' => 'content_6163b81ff17b00_10122936',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:select.tpl' => 1,
   ),
 ),false)) {
-function content_616361412e01c9_85604167 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6163b81ff17b00_10122936 (Smarty_Internal_Template $_smarty_tpl) {
 ?><form action="agregar">
     <input type="text" placeholder="producto" name="producto">
     <input type="number" placeholder="precio" name="precio">

@@ -46,17 +46,20 @@ class Controlador{
     }
     function modificar($id){
         $categorias = $this->model->obtenerSoloCategorias();
+        /* var_dump($categorias);
+        echo "<br>". $categorias[0]->nombre; */
         $this->view->datos($id, $categorias);
      }
      function confirmform(){
          $producto = $_REQUEST['producto'];
          $precio = $_REQUEST['precio'];
          $detalle = $_REQUEST['detalle'];
-         $categoria = $_GET['categoria'];
-         $id = $_REQUEST['id_producto'];
-         $modificar = $this->model->modificar($nombre, $profesor,$carrera,$id);
+         $categoria = $_REQUEST['categoria'];
+         $id = $_REQUEST['id'];
+         /* var_dump($categoria,$id); */
+         $modificar = $this->model->modificar($producto, $precio, $detalle, $id,$categoria);
          if($modificar){
-             header("Location: " . BASE_URL);
+             header("Location: " . BASE_URL ."admin");
          }
      }
 }
