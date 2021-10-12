@@ -10,12 +10,10 @@ class Model{
     }
     function filtrarCategorias($dato){
         $db = new PDO('mysql:host=localhost;'.'dbname=db_bares;charset=utf8', 'root', '');
-       // $query = $db->prepare('SELECT * FROM categoria WHERE nombre_categoria = ?');
        $query = $db->prepare(
         'SELECT `producto`.*,`categoria`.* FROM `producto` 
         INNER JOIN `categoria` ON `categoria`.`id_categoria`= `producto`.`id_categorias_fk`
         WHERE nombre_categoria = ?');
-       // $query = $db->prepare('SELECT * FROM `materia` WHERE * LIKE ?');
         $query->execute([$dato]);
         $categoria = $query->fetchAll(PDO::FETCH_OBJ);
         return $categoria;
@@ -51,14 +49,6 @@ class Model{
         $query->execute([$producto,$precio,$detalle, $categoria]);
     
     }
-    /*   function obtenerCategorias(){
-        $db = new PDO('mysql:host=localhost;'.'dbname=db_bares;charset=utf8', 'root', '');
-       $query = $db->prepare('SELECT categoria.* FROM categoria');
-       $query->execute();
-       $categoria = $query->fetchAll(PDO::FETCH_OBJ);
-
-       return $categoria;
-    }*/
     function borrar($id) {
         $db = new PDO('mysql:host=localhost;'.'dbname=db_bares;charset=utf8', 'root', '');
     
@@ -75,12 +65,6 @@ class Model{
        $query = $db->prepare('UPDATE `producto` SET `nombre_producto` = ?, `detalle` = ?, `precio_producto` = ?, `id_categorias_fk` = ? WHERE `producto`.`id_productos` = ?;'); 
         return $query->execute([$producto, $detalle, $precio,$categoria,$id]);
     }
-    function getUserData($userEmail){
-        $db = new PDO('mysql:host=localhost;'.'dbname=db_bares;charset=utf8', 'root', '');
-        $query = $db->prepare('SELECT * FROM usuarios WHERE email = ?');
-        $query->execute([$userEmail]);
-        $user = $query->fetch(PDO::FETCH_OBJ);
-        return $user;
-    }
+   
 
 }

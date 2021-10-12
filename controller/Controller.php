@@ -1,12 +1,14 @@
 <?php
 require_once('model/Model.php');
 require_once('view/View.php');
+include_once('helpers/auth.helper.php');
 class Controlador
 {
     private $model;
     private $view;
     public function __construct()
     {
+        $this->authHelper = new AuthHelper();
         $this->model = new Model();
         $this->view = new View();
         session_start();
@@ -14,7 +16,7 @@ class Controlador
 
     function renderHome()
     {
-        $this->checkActivity();
+        $this->authHelper->checkActivity();
         $producto = $this->model->obtenerTodosLosDatos();
         $categoria = $this->model->obtenerSoloCategorias();
         $_SESSION['LAST_ACTIVITY'] = time();
@@ -30,7 +32,7 @@ class Controlador
     }
     function detalleProducto($id)
     {   
-        $this->checkActivity();
+        $this->authHelper->checkActivity();
         $infoProducto = $this->model->obtenerInfoProducto($id);
         $nombre = $infoProducto[0]->nombre;
         $categoria = $infoProducto[0]->nombre_categoria;
@@ -41,8 +43,8 @@ class Controlador
     }
     function seccionAdmin()
     {
-        $this->checkLogin();
-        $this->checkActivity();
+        $this->authHelper->checkLogin();
+        $this->authHelper->checkActivity();
         $producto = $this->model->obtenerTodosLosDatos();
         $categorias = $this->model->obtenerSoloCategorias();
         $this->view->admin($categorias, $producto);
@@ -50,8 +52,8 @@ class Controlador
     }
     function agregar()
     {
-        $this->checkLogin();
-        $this->checkActivity();
+        $this->authHelper->checkLogin();
+        $this->authHelper->checkActivity();
         if(isset($_GET['nombre_categoria'])){
             $categoria = $_GET['nombre_categoria'];
             $this->model->agregarCategoria($categoria);
@@ -70,8 +72,8 @@ class Controlador
     }
     function borrardatos($id)
     {
-        $this->checkLogin();
-        $this->checkActivity();
+        $this->authHelper->checkLogin();
+        $this->authHelper->checkActivity();
         if(isset($_GET['nombre_categoria'])){
             $categoria = $_GET['nombre_categoria'];
             $this->model->borrarCategoria($categoria);
@@ -84,8 +86,8 @@ class Controlador
     }
     function modificar($id)
     {
-        $this->checkLogin();
-        $this->checkActivity();
+        $this->authHelper->checkLogin();
+        $this->authHelper->checkActivity();
         $categorias = $this->model->obtenerSoloCategorias();
         /* var_dump($categorias);
         echo "<br>". $categorias[0]->nombre; */
@@ -95,8 +97,8 @@ class Controlador
     }
     function confirmform()
     {
-        $this->checkLogin();
-        $this->checkActivity();
+        $this->authHelper->checkLogin();
+        $this->authHelper->checkActivity();
         $producto = $_REQUEST['producto'];
         $precio = $_REQUEST['precio'];
         $detalle = $_REQUEST['detalle'];
@@ -109,49 +111,5 @@ class Controlador
             header("Location: " . ADMIN);
         }
     }
-    function showLogin()
-    {
-        $this->view->showLoginForm();
-    }
-    function login()
-    {
-        if (!empty($_POST['usuario']) && !empty($_POST['password'])) {
-            $usuario = $_POST['usuario'];
-            $password = $_POST['password'];
-        }
-        $userData = $this->model->getUserData($usuario);
-        if ($usuario && password_verify($password, $userData->password)) {
-            /* session_start(); */
-            $_SESSION['USER_ID'] = $userData->id;
-            $_SESSION['USER_EMAIL'] = $userData->email;
-            $_SESSION['LAST_ACTIVITY'] = time();
-            header("Location: " . ADMIN);
-        } else {
-            $this->view->showLoginForm("Usuario y/o contraseña inválidos");
-        }
-    }
-    function checkLogin()
-    {
-       /*  session_start(); */
-        if (empty($_SESSION['USER_ID'])) {
-            header("Location: " . LOGIN);
-        }
-    }
-    function checkActivity()
-    { /* echo ("activity checked<br>". time()-$_SESSION['LAST_ACTIVITY']); */
-        
-        if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 120)) { /* Desloguea en 2 minutos */
-                $this->logout();
-        }
-    }
-
-
-    function logout()
-    {
-        /* session_start(); */
-        /* $_SESSION['USER_ID'] = null; En caso de querer borrar SOLO los datos de ingreso del usuario
-        $_SESSION['USER_EMAIL'] = null; */
-        session_destroy();
-        header("Location: " . BASE_URL);
-    }
+    
 }

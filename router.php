@@ -1,11 +1,11 @@
 <?php
 
 require_once('controller/Controller.php');
-
+require_once('controller/ControllerIngreso.php');
 
 $controller = new Controlador();
-
-
+$controllerIngreso = new ControladorIngreso();
+$authHelper = new AuthHelper();
 
 define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
 define('LOGIN', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/login');
@@ -47,14 +47,14 @@ switch ($params[0]) {
     break;
     case 'login':
         if($_SERVER['REQUEST_METHOD']=='POST'){
-            $controller->login(); 
+            $controllerIngreso->login(); 
         }
         else{
-            $controller->showLogin();
+            $controllerIngreso->showLogin();
         }
-        break;
+    break;
     case 'logout':
-        $controller->logout();
+        $authHelper->logout();
     break;
     
     default:
