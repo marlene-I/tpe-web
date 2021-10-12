@@ -16,7 +16,7 @@ class Controlador
     {
         $producto = $this->model->obtenerTodosLosDatos();
         $categoria = $this->model->obtenerSoloCategorias();
-
+        $_SESSION['LAST_ACTIVITY'] = time();
         $this->view->Home($producto, $categoria);
     }
 
@@ -25,6 +25,7 @@ class Controlador
         $categorias = $this->model->obtenerSoloCategorias();
         $filtroCategorias = $this->model->filtrarCategorias($categoria);
         $this->view->Home($filtroCategorias, $categorias);
+        $_SESSION['LAST_ACTIVITY'] = time();
     }
     function detalleProducto()
     {
@@ -37,7 +38,6 @@ class Controlador
         $categorias = $this->model->obtenerSoloCategorias();
         $this->view->admin($categorias, $producto);
         $_SESSION['LAST_ACTIVITY'] = time();
-        
     }
     function agregar()
     {
