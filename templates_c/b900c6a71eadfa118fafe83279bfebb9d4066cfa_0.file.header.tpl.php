@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-10-12 04:42:42
+/* Smarty version 3.1.39, created on 2021-10-12 15:02:15
   from 'C:\xampp\htdocs\WEB II\tpe-web\templates\header.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_6164f622782339_24195748',
+  'unifunc' => 'content_616587578e98d3_51683243',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b900c6a71eadfa118fafe83279bfebb9d4066cfa' => 
     array (
       0 => 'C:\\xampp\\htdocs\\WEB II\\tpe-web\\templates\\header.tpl',
-      1 => 1634006560,
+      1 => 1634043716,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6164f622782339_24195748 (Smarty_Internal_Template $_smarty_tpl) {
+function content_616587578e98d3_51683243 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,9 +55,14 @@ $_smarty_tpl->tpl_vars['categoria']->do_else = false;
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         </ul>    
+                    <?php if ((isset($_SESSION['USER_ID']))) {?>
+                    <li class="nav-item"><a href="admin" class="nav-link">Admin</a></li>
+                    <li class="nav-item"><a href="logout" class="nav-link">Cerrar sesión (<?php echo $_SESSION['USER_EMAIL'];?>
+)</a></li>
+                    <?php } else { ?>
                     <li class="nav-item"><a href="login" class="nav-link">Ingresar</a></li>
                     <li class="nav-item"><a href="registro" class="nav-link">Registro</a></li>
-                    </li><li class="nav-item"><a href="admin" class="nav-link">Admin</a></li>
+                    <?php }?>
                 </ul> 
             </div>
         </nav>

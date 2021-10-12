@@ -29,7 +29,8 @@
         $this->smarty->assign('id', $id);
         $this->smarty->display('templates/modificar.tpl');
     }
-    function showLoginForm(){
+    function showLoginForm($error=null){
+        $this->smarty->assign('error', $error);
         $this->smarty->display('templates/formLogin.tpl');  
     }
 
