@@ -34,7 +34,7 @@ class Model{
         $query->execute([$producto,$precio,$detalle, $categoria]);
         return $db->lastInsertId();
     }
- /*   function obtenerCategorias(){
+    /*   function obtenerCategorias(){
         $db = new PDO('mysql:host=localhost;'.'dbname=db_bares;charset=utf8', 'root', '');
        $query = $db->prepare('SELECT categoria.* FROM categoria');
        $query->execute();
@@ -57,6 +57,13 @@ class Model{
        /* $query = $db->prepare('UPDATE `producto` SET `nombre_producto` = ?, `precio_producto` = ?,`detalle` = ?, `id_producto` = ?, `id_categorias_fk` WHERE `producto`.`id_producto` = ?;'); */
        $query = $db->prepare('UPDATE `producto` SET `nombre_producto` = ?, `detalle` = ?, `precio_producto` = ?, `id_categorias_fk` = ? WHERE `producto`.`id_productos` = ?;'); 
         return $query->execute([$producto, $detalle, $precio,$categoria,$id]);
+    }
+    function getUserData($userEmail){
+        $db = new PDO('mysql:host=localhost;'.'dbname=db_bares;charset=utf8', 'root', '');
+        $query = $db->prepare('SELECT * FROM usuarios WHERE email = ?');
+        $query->execute([$userEmail]);
+        $user = $query->fetch(PDO::FETCH_OBJ);
+        return $user;
     }
 
 }

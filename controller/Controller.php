@@ -61,5 +61,25 @@ class Controlador{
          if($modificar){
              header("Location: " . BASE_URL ."admin");
          }
-     }
+        }
+    function showLogin(){
+         $this->view->showLoginForm();
+        }
+    function login(){ 
+        if(!empty($_POST['usuario']) && !empty($_POST['password'])){
+            $usuario = $_POST['usuario'];
+            $password = $_POST['password'];
+        }
+            $userData = $this->model->getUserData($usuario);
+            if($usuario && password_verify($password,$userData->password)){
+                echo "Acceso exitoso";
+            }else {
+                echo "Acceso denegado";
+            }
+
+        }
+    
+    function detalleProducto(){
+
+    }
 }

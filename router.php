@@ -2,7 +2,9 @@
 
 require_once('controller/Controller.php');
 
+
 $controller = new Controlador();
+
 
 
 define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
@@ -39,6 +41,15 @@ switch ($params[0]) {
     case 'confirmar':
         $controller->confirmform();
     break;
+    case 'login':
+        if($_SERVER['REQUEST_METHOD']=='POST'){
+            $controller->login(); 
+        }
+        else{
+            $controller->showLogin();
+        }
+    break;
+    
     default:
         # code...
     break;

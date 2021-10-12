@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
-    <title>Document</title>
+    <title>BarApp</title>
 </head>
 <body>
     <header>
@@ -22,7 +22,8 @@
                             <li class="nav-item"><a href="nombre_categoria/{$categoria->nombre}" class="nav-link">{$categoria->nombre}</a></li>
                             {/foreach}
                         </ul>    
-                    <li class="nav-item"><a href="" class="nav-link">Login</a></li>
+                    <li class="nav-item"><a href="login" class="nav-link">Ingresar</a></li>
+                    <li class="nav-item"><a href="registro" class="nav-link">Registro</a></li>
                     </li><li class="nav-item"><a href="admin" class="nav-link">Admin</a></li>
                 </ul> 
             </div>
