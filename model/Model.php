@@ -27,6 +27,13 @@ class Model{
         $categoria = $query->fetchAll(PDO::FETCH_OBJ);
         return $categoria;
     }
+    function obtenerInfoProducto($id){
+        $db = new PDO('mysql:host=localhost;'.'dbname=db_bares;charset=utf8','root','');
+        $query = $db->prepare('SELECT p.nombre_producto AS nombre ,p.precio_producto AS precio ,p.detalle AS detalle, categoria.nombre_categoria FROM producto p INNER JOIN categoria ON categoria.id_categoria = p.id_categorias_fk WHERE id_productos= ?');
+        $query->execute([$id]);
+        $detalle = $query ->fetchAll(PDO::FETCH_OBJ);
+        return $detalle;
+    }
     function agregar($producto,$precio, $detalle, $categoria){
         $db = new PDO('mysql:host=localhost;'.'dbname=db_bares;charset=utf8', 'root', '');
 

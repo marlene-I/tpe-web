@@ -13,7 +13,7 @@
     <header>
         <nav>
             <div class="contendor-nav">   
-                <ul class="navbar navbar-dark bg-dark">
+                <ul class="navbar navbar-dark bg-dark navbar-toggler">
                     </li> <li class="nav-item"><a href="" class="nav-link">Home</a></li>
                     <li class="nav-item"><a href="" class="nav-link">Menu</a></li>
                     <li class="nav-item"><a href="" class="nav-link">Categorias</a>

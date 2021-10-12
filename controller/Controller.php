@@ -14,6 +14,7 @@ class Controlador
 
     function renderHome()
     {
+        $this->checkActivity();
         $producto = $this->model->obtenerTodosLosDatos();
         $categoria = $this->model->obtenerSoloCategorias();
         $_SESSION['LAST_ACTIVITY'] = time();
@@ -27,8 +28,16 @@ class Controlador
         $this->view->Home($filtroCategorias, $categorias);
         $_SESSION['LAST_ACTIVITY'] = time();
     }
-    function detalleProducto()
-    {
+    function detalleProducto($id)
+    {   
+        $this->checkActivity();
+        $infoProducto = $this->model->obtenerInfoProducto($id);
+        $nombre = $infoProducto[0]->nombre;
+        $categoria = $infoProducto[0]->nombre_categoria;
+        $precio = $infoProducto[0]->precio;
+        $detalle  = $infoProducto[0]-> detalle;
+        $this->view->mostrarDetalle($nombre,$categoria,$precio,$detalle);
+        $_SESSION['LAST_ACTIVITY'] = time();
     }
     function seccionAdmin()
     {
@@ -58,11 +67,10 @@ class Controlador
         $this->checkLogin();
         $this->checkActivity();
         $borrar = $this->model->borrar($id);
-        $this->view->borrarr($borrar);
+        /* $this->view->borrarr($borrar); */
         $this->seccionAdmin();
         $_SESSION['LAST_ACTIVITY'] = time();
-
-        header("Location: " . ADMIN);
+        /* header("Location: " . ADMIN); */
     }
     function modificar($id)
     {
@@ -120,7 +128,8 @@ class Controlador
         }
     }
     function checkActivity()
-    {
+    { /* echo ("activity checked<br>". time()-$_SESSION['LAST_ACTIVITY']); */
+        
         if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 120)) { /* Desloguea en 2 minutos */
                 $this->logout();
         }

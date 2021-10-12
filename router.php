@@ -27,7 +27,7 @@ switch ($params[0]) {
     case 'nombre_categoria':
        $controller->filtradoCategorias($params[1]);
     break;
-    case 'detalleProducto':
+    case 'detalle':
         $controller->detalleProducto($params[1]);
     break;
     case 'admin':
