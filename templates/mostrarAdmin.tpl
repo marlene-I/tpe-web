@@ -2,9 +2,9 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>producto</th>
-                <th>precio</th>
-                <th>categoria</th>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Categoria</th>
                 <th>Acciones</th>
             </tr>
         </thead>
