@@ -34,12 +34,22 @@ class Model{
         $detalle = $query ->fetchAll(PDO::FETCH_OBJ);
         return $detalle;
     }
+    function agregarCategoria($categoria){
+        $db = new PDO('mysql:host=localhost;'.'dbname=db_bares;charset=utf8', 'root', '');
+        $query = $db->prepare('INSERT INTO `categoria` (`id_categoria`, `nombre_categoria`) VALUES (NULL, ?)');
+        $query->execute([$categoria]);
+    }
+    function borrarCategoria($categoria){
+        $db = new PDO('mysql:host=localhost;'.'dbname=db_bares;charset=utf8', 'root', '');
+        $query = $db->prepare('DELETE FROM `categoria` WHERE `categoria`.`id_categoria` = 5');
+        $query->execute([$categoria]);
+    }
     function agregar($producto,$precio, $detalle, $categoria){
         $db = new PDO('mysql:host=localhost;'.'dbname=db_bares;charset=utf8', 'root', '');
 
         $query = $db->prepare('INSERT INTO producto(nombre_producto,precio_producto, detalle, id_categorias_fk) VALUES (?,?,?,?)');
         $query->execute([$producto,$precio,$detalle, $categoria]);
-        return $db->lastInsertId();
+    
     }
     /*   function obtenerCategorias(){
         $db = new PDO('mysql:host=localhost;'.'dbname=db_bares;charset=utf8', 'root', '');

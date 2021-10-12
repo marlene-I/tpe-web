@@ -52,12 +52,18 @@ class Controlador
     {
         $this->checkLogin();
         $this->checkActivity();
-        $producto = $_GET['producto'];
-        $precio = $_GET['precio'];
-        $detalle = $_GET['detalle'];
-        $categoria = $_GET['categoria'];
-        var_dump($categoria);
-        $this->model->agregar($producto, $precio, $detalle, $categoria);
+        if(isset($_GET['nombre_categoria'])){
+            $categoria = $_GET['nombre_categoria'];
+            $this->model->agregarCategoria($categoria);
+        }else {
+            $producto = $_GET['producto'];
+            $precio = $_GET['precio'];
+            $detalle = $_GET['detalle'];
+            $categoria = $_GET['categoria'];
+            var_dump($categoria);
+            $this->model->agregar($producto, $precio, $detalle, $categoria);
+        }
+        
         $_SESSION['LAST_ACTIVITY'] = time();
 
         header("Location: " . ADMIN);
@@ -66,6 +72,10 @@ class Controlador
     {
         $this->checkLogin();
         $this->checkActivity();
+        if(isset($_GET['nombre_categoria'])){
+            $categoria = $_GET['nombre_categoria'];
+            $this->model->borrarCategoria($categoria);
+        }
         $borrar = $this->model->borrar($id);
         /* $this->view->borrarr($borrar); */
         $this->seccionAdmin();
