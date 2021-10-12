@@ -62,7 +62,6 @@ class Controlador
             $precio = $_GET['precio'];
             $detalle = $_GET['detalle'];
             $categoria = $_GET['categoria'];
-            var_dump($categoria);
             $this->model->agregar($producto, $precio, $detalle, $categoria);
         }
         
@@ -109,7 +108,14 @@ class Controlador
         $modificar = $this->model->modificar($producto, $precio, $detalle, $id, $categoria);
         if ($modificar) {
             header("Location: " . ADMIN);
-        }
+    }
+}
+
+    function modificarCategorias(){
+        $this->authHelper->checkLogin();
+        $this->authHelper->checkActivity();
+        $categorias = $this->model->obtenerSoloCategorias();
+        $this->view->mostrarCategorias($categorias);
     }
     
 }

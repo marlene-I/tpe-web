@@ -13,8 +13,5 @@
         <input type="text" placeholder="Nombre de categoria" name="nombre_categoria">
         <button type="submit" class="btn btn-dark mt-2">Agregar</button>
     </form>
-    <form action="borrar">
-        {include file="select.tpl"}
-        <button type="submit" class="btn btn-dark mt-2">Borrar</button>
-    </form>
+        <a href="modificarCategorias" class="btn btn-dark mt-2">Modificar Categorias</a>
 </div>

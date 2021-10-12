@@ -20,14 +20,20 @@
         $this->smarty->display('templates/detalle.tpl');
     }
     function admin($categorias, $producto){
+       var_dump($categorias);
         $this->smarty->assign('categorias', $categorias);
         $this->smarty->assign('productos', $producto);
         $this->smarty->display('admin.tpl');
+        /* $this->smarty->display('agregar.tpl'); */
     }
     function datos($id,$categorias){
   
         $this->smarty->assign('categorias', $categorias);
         $this->smarty->assign('id', $id);
         $this->smarty->display('templates/modificar.tpl');
+    }
+    function mostrarCategorias($categorias){
+        $this->smarty->assign('categorias', $categorias);
+        $this->smarty->display('templates/modificarCategoria.tpl');
     }
 }

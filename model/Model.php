@@ -51,7 +51,6 @@ class Model{
     }
     function borrar($id) {
         $db = new PDO('mysql:host=localhost;'.'dbname=db_bares;charset=utf8', 'root', '');
-    
         $query = $db->prepare('DELETE FROM producto WHERE id_productos=?');
         return $query->execute([$id]);
     }

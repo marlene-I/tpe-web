@@ -42,6 +42,9 @@ switch ($params[0]) {
     case 'modificar':
         $controller->modificar($params[1]);
     break;
+    case 'modificarCategorias':
+        $controller->modificarCategorias();
+    break;
     case 'confirmar':
         $controller->confirmform();
     break;
