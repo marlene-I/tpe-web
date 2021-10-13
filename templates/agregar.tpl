@@ -1,9 +1,9 @@
 <div class="container">
     <form action="agregar">
         <h3>Agregar producto</h3>
-        <input type="text" placeholder="producto" name="producto">
-        <input type="number" placeholder="precio" name="precio">
-        <input type="text" placeholder="detalle" name="detalle">
+        <input type="text" placeholder="Nombre de producto" name="producto">
+        <input type="number" placeholder="Precio" name="precio">
+        <input type="text" placeholder="Detalle" name="detalle">
         {include file="select.tpl"}
         <button type="submit" class="btn btn-dark mt-2">Agregar</button>
     </form>
