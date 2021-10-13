@@ -1,7 +1,13 @@
 <?php
+require_once('model/Model.php');
 
 class AuthHelper {
-    public function __construct() {}
+    private $model;
+
+    public function __construct() {
+        $this->model = new Model();
+
+    }
 
     function checkLogin()
     {
@@ -25,5 +31,9 @@ class AuthHelper {
         $_SESSION['USER_EMAIL'] = null; */
         session_destroy();
         header("Location: " . BASE_URL);
+    }
+    function obtenerCategorias(){ //Se agrega para dar acceso al Controller Ingreso
+        $categorias = $this->model->obtenerSoloCategorias();
+        return $categorias;
     }
 }

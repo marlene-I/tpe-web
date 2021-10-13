@@ -141,5 +141,6 @@ class Controlador
         header("Location: " . ADMIN." /modificarCategorias");
 
     }
+    
 
 }

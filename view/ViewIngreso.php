@@ -8,8 +8,9 @@
     }
     
     
-    function showLoginForm($error=null){
+    function showLoginForm($categorias=null,$error=null){
         $this->smarty->assign('error', $error);
+        $this->smarty->assign('categorias', $categorias);
         $this->smarty->display('templates/formLogin.tpl');  
     }
 
