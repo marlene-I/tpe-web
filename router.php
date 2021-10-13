@@ -45,7 +45,7 @@ switch ($params[0]) {
     case 'modificarCategorias':
         var_dump($params);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $controller-> confirmarModificacion($params[1]);
+            $controller-> confirmarModificacion();
         } else if(isset($params[1])){
             $controller-> modificarCategorias($params[1]);
         }else{

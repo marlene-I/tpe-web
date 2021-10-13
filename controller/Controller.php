@@ -123,9 +123,10 @@ class Controlador
         $this->authHelper->checkActivity();
         $this->view->mostrarFormCategorias($id);
     }
-    function confirmarModificacion($id){
+    function confirmarModificacion(){
         echo "aca";
         $newCat = $_REQUEST['categoria'];
+        $id = $_REQUEST['id'];
         $this->model->modificarCategoria($newCat, $id);
         $_SESSION['LAST_ACTIVITY'] = time();
         header("Location: " . ADMIN." /modificarCategorias");
