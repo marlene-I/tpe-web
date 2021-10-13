@@ -32,7 +32,11 @@ switch ($params[0]) {
         break;
     case 'admin':
         $controller->seccionAdmin();
-        break;
+    break;
+    case 'registro':
+        $controller->seccionRegistro();
+    break;
+
     case 'agregar':
         $controller->agregar();
         break;
@@ -66,7 +70,7 @@ switch ($params[0]) {
         break;
     case 'logout':
         $authHelper->logout();
-        break;
+    break;
 
     default:
         echo "404 -Página no encontrada";

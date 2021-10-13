@@ -7,15 +7,16 @@ class ControladorIngreso{
     private $view;
     public function __construct()
     {
-        $authHelper = new AuthHelper();
+        $this->authHelper = new AuthHelper();
         $this->model = new ModelIngreso();
         $this->view = new ViewIngreso();
       
     }
     
-    function showLogin()
+    function showLogin($categorias)
     {
-        $this->view->showLoginForm();
+        $categorias = $this->model->obtenerSoloCategorias();
+        $this->view->showLoginForm($categorias);
     }
     function login()
     {

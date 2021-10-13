@@ -39,5 +39,9 @@
         $this->smarty->assign('id',$id);
         $this->smarty->display('templates/mostrarFormCategorias.tpl');
     }
+    function mostrarFormRegistro($categorias){
+        $this->smarty->assign('categorias', $categorias);
+        $this->smarty->display('templates/formRegistro.tpl');
+    }
 
 }

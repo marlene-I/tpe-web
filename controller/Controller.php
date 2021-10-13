@@ -50,6 +50,11 @@ class Controlador
         $this->view->admin($categorias, $producto);
         $_SESSION['LAST_ACTIVITY'] = time();
     }
+    function seccionRegistro(){
+        $categorias = $this->model->obtenerSoloCategorias();
+        $this->view->mostrarFormRegistro($categorias);
+
+    }
     function agregar()
     {
         $this->authHelper->checkLogin();

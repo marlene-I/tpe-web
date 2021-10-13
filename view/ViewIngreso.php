@@ -1,5 +1,6 @@
 <?php
  require_once('libs/Smarty.class.php');
+ require_once('helpers/auth.helper.php');
  class ViewIngreso{
     private $smarty;
     function __construct(){
