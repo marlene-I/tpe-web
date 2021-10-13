@@ -69,7 +69,7 @@ switch ($params[0]) {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $controllerIngreso->login();
         } else {
-            $controllerIngreso->showLogin();
+            $controllerIngreso->mostrarLogin();
         }
         break;
     case 'logout':

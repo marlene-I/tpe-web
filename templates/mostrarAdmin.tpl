@@ -1,5 +1,5 @@
 <div class="container">
-    <table class="table table-hover">
+    <table class="table table-hover table-responsive">
         <thead>
             <tr>
                 <th>Producto</th>
@@ -8,7 +8,7 @@
                 <th>Acciones</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table table-responsive">
             {foreach from=$productos item=producto}
                     <tr>
                         <td>{$producto->nombre_producto}</td>

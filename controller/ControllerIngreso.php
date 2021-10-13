@@ -13,10 +13,10 @@ class ControladorIngreso{
       
     }
     
-    function showLogin()
+    function mostrarLogin($error=null)
     {
         $categorias = $this->authHelper->obtenerCategorias();
-        $this->view->showLoginForm($categorias);
+        $this->view->showLoginForm($categorias,$error);
     }
     function login()
     {
@@ -32,7 +32,7 @@ class ControladorIngreso{
             $_SESSION['LAST_ACTIVITY'] = time();
             header("Location: " . ADMIN);
         } else {
-            $this->showLogin(null,"Usuario y/o contraseña inválidos");
+            $this->mostrarLogin("Usuario y/o contraseña inválidos");
         }
     }
     function seccionRegistro(){
