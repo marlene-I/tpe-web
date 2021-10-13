@@ -32,10 +32,14 @@ switch ($params[0]) {
         break;
     case 'admin':
         $controller->seccionAdmin();
-    break;
+        break;
     case 'registro':
-        $controller->seccionRegistro();
-    break;
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $controllerIngreso->crearUsuario();
+        } else {
+            $controllerIngreso->seccionRegistro();
+        }
+        break;
 
     case 'agregar':
         $controller->agregar();
@@ -48,10 +52,10 @@ switch ($params[0]) {
         break;
     case 'modificarCategorias':
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $controller-> confirmarModificacion();
-        } else if(isset($params[1])){
-            $controller-> modificarCategorias($params[1]);
-        }else{
+            $controller->confirmarModificacion();
+        } else if (isset($params[1])) {
+            $controller->modificarCategorias($params[1]);
+        } else {
             $controller->showCategorias();
         }
         break;
@@ -70,7 +74,7 @@ switch ($params[0]) {
         break;
     case 'logout':
         $authHelper->logout();
-    break;
+        break;
 
     default:
         echo "404 -Página no encontrada";

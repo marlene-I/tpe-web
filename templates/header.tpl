@@ -24,10 +24,10 @@
                         </ul>    
                     {if isset($smarty.session.USER_ID)}
                     <li class="nav-item"><a href="admin" class="nav-link">Admin</a></li>
+                    <li class="nav-item"><a href="registro" class="nav-link">Registro</a></li>
                     <li class="nav-item"><a href="logout" class="nav-link">Cerrar sesión ({$smarty.session.USER_EMAIL})</a></li>
                     {else}
                     <li class="nav-item"><a href="login" class="nav-link">Ingresar</a></li>
-                    <li class="nav-item"><a href="registro" class="nav-link">Registro</a></li>
                     {/if}
                 </ul> 
             </div>

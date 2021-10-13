@@ -7,4 +7,9 @@ class ModelIngreso{
         $user = $query->fetch(PDO::FETCH_OBJ);
         return $user;
     }
+    function crearUsuario($password,$usuario){
+        $db = new PDO('mysql:host=localhost;'.'dbname=db_bares;charset=utf8', 'root', '');
+        $query = $db->prepare('INSERT INTO `usuarios` (`id`, `email`, `password`) VALUES (NULL, ?, ?);');
+        $query->execute([$usuario,$password]);
+   }
 }

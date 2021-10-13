@@ -13,6 +13,10 @@
         $this->smarty->assign('categorias', $categorias);
         $this->smarty->display('templates/formLogin.tpl');  
     }
-
+    function mostrarFormRegistro($categorias=null,$error=null){
+        $this->smarty->assign('categorias', $categorias);
+        $this->smarty->assign('error', $error);
+        $this->smarty->display('templates/formRegistro.tpl');
+    }
 
 }
