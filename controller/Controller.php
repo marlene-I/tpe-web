@@ -131,4 +131,8 @@ class Controlador
         $_SESSION['LAST_ACTIVITY'] = time();
         header("Location: " . ADMIN." /modificarCategorias");
     }
+    function borrarCategoria($id){
+        $this->model->borrarCategoria($id);
+    }
+
 }

@@ -43,7 +43,6 @@ switch ($params[0]) {
         $controller->modificar($params[1]);
         break;
     case 'modificarCategorias':
-        var_dump($params);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $controller-> confirmarModificacion();
         } else if(isset($params[1])){
@@ -51,6 +50,9 @@ switch ($params[0]) {
         }else{
             $controller->showCategorias();
         }
+        break;
+    case 'borrarCategoria':
+        $controller->borrarCategoria($params[1]);
         break;
     case 'confirmar':
         $controller->confirmform();
