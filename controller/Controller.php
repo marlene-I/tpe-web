@@ -23,15 +23,13 @@ class Controlador
         $this->view->Home($producto, $categoria);
     }
 
-    function filtradoCategorias($categoria)
-    {
+    function filtradoCategorias($categoria){
         $categorias = $this->model->obtenerSoloCategorias();
         $filtroCategorias = $this->model->filtrarCategorias($categoria);
         $this->view->Home($filtroCategorias, $categorias);
         $_SESSION['LAST_ACTIVITY'] = time();
     }
-    function detalleProducto($id)
-    {
+    function detalleProducto($id){
         $this->authHelper->checkActivity();
         $infoProducto = $this->model->obtenerInfoProducto($id);
         $nombre = $infoProducto[0]->nombre;
@@ -41,8 +39,7 @@ class Controlador
         $this->view->mostrarDetalle($nombre, $categoria, $precio, $detalle);
         $_SESSION['LAST_ACTIVITY'] = time();
     }
-    function seccionAdmin()
-    {
+    function seccionAdmin(){
         $this->authHelper->checkLogin();
         $this->authHelper->checkActivity();
         $producto = $this->model->obtenerTodosLosDatos();
@@ -51,8 +48,7 @@ class Controlador
         $_SESSION['LAST_ACTIVITY'] = time();
     }
     
-    function agregar()
-    {
+    function agregar(){
         $this->authHelper->checkLogin();
         $this->authHelper->checkActivity();
         if (isset($_GET['nombre_categoria'])) {
@@ -70,8 +66,7 @@ class Controlador
 
         header("Location: " . ADMIN);
     }
-    function borrardatos($id)
-    {
+    function borrardatos($id){
         $this->authHelper->checkLogin();
         $this->authHelper->checkActivity();
         if (isset($_GET['nombre_categoria'])) {
@@ -84,8 +79,7 @@ class Controlador
         $_SESSION['LAST_ACTIVITY'] = time();
         /* header("Location: " . ADMIN); */
     }
-    function modificar($id)
-    {
+    function modificar($id){
         $this->authHelper->checkLogin();
         $this->authHelper->checkActivity();
         $categorias = $this->model->obtenerSoloCategorias();
@@ -94,8 +88,7 @@ class Controlador
         $this->view->datos($id, $categorias);
         $_SESSION['LAST_ACTIVITY'] = time();
     }
-    function confirmform()
-    {
+    function confirmform(){
         $this->authHelper->checkLogin();
         $this->authHelper->checkActivity();
         $producto = $_REQUEST['producto'];
@@ -111,15 +104,13 @@ class Controlador
         }
     }
 
-    function showCategorias()
-    {
+    function showCategorias(){
         $this->authHelper->checkLogin();
         $this->authHelper->checkActivity();
         $categorias = $this->model->obtenerSoloCategorias();
         $this->view->mostrarCategorias($categorias);
     }
-    function modificarCategorias($id)
-    {
+    function modificarCategorias($id){
         $this->authHelper->checkLogin();
         $this->authHelper->checkActivity();
         $this->view->mostrarFormCategorias($id);
@@ -137,6 +128,4 @@ class Controlador
         header("Location: " . ADMIN." /modificarCategorias");
 
     }
-    
-
 }
