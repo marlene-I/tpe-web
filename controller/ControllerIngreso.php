@@ -46,11 +46,11 @@ class ControladorIngreso{
     function crearUsuario(){
         $this->authHelper->checkLogin();
         $this->authHelper->checkActivity();
-        $password = $_REQUEST['password-1'];
-        if($password != $_REQUEST['password-2']){
+        if($_REQUEST['password-1'] != $_REQUEST['password-2']){
             $this->view->mostrarFormRegistro(null,"Las contraseñas no coinciden");
             die;
         }
+        $password = password_hash($_REQUEST['password-1'], PASSWORD_DEFAULT);
         $usuario = $_REQUEST['usuario'];
         $this->model->crearUsuario($password,$usuario);
         $_SESSION['LAST_ACTIVITY'] = time();
