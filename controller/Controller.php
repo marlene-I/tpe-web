@@ -33,12 +33,13 @@ class Controlador
     function detalleProducto($id)
     {
         $this->authHelper->checkActivity();
+        $categorias= $this->model->obtenerSoloCategorias();
         $infoProducto = $this->model->obtenerInfoProducto($id);
         $nombre = $infoProducto[0]->nombre;
         $categoria = $infoProducto[0]->nombre_categoria;
         $precio = $infoProducto[0]->precio;
         $detalle  = $infoProducto[0]->detalle;
-        $this->view->mostrarDetalle($nombre, $categoria, $precio, $detalle);
+        $this->view->mostrarDetalle($nombre, $categoria, $precio, $detalle,$categorias);
         $_SESSION['LAST_ACTIVITY'] = time();
     }
     function seccionAdmin()

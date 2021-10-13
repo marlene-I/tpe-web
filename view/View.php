@@ -12,7 +12,8 @@
         $this->smarty->display('templates/home.tpl');      
     }
     
-    function mostrarDetalle($nombre,$categoria,$precio,$detalle){
+    function mostrarDetalle($nombre,$categoria,$precio,$detalle,$categorias){
+        $this->smarty->assign('categorias',$categorias);
         $this->smarty->assign('nombre', $nombre);
         $this->smarty->assign('categoria', $categoria);
         $this->smarty->assign('precio', $precio);
