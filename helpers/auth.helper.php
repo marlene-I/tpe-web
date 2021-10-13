@@ -13,7 +13,7 @@ class AuthHelper {
     function checkActivity()
     { /* echo ("activity checked<br>". time()-$_SESSION['LAST_ACTIVITY']); */
         
-        if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 10000)) { /* Desloguea en 2 minutos */
+        if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 120)) { /* Desloguea en 2 minutos */
                 $this->logout();
         }
     }

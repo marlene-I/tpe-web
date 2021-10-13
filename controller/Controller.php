@@ -138,6 +138,8 @@ class Controlador
     }
     function borrarCategoria($id){
         $this->model->borrarCategoria($id);
+        header("Location: " . ADMIN." /modificarCategorias");
+
     }
 
 }
