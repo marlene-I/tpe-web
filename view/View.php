@@ -20,7 +20,6 @@
         $this->smarty->display('templates/detalle.tpl');
     }
     function admin($categorias, $producto){
-       var_dump($categorias);
         $this->smarty->assign('categorias', $categorias);
         $this->smarty->assign('productos', $producto);
         $this->smarty->display('admin.tpl');
@@ -34,6 +33,11 @@
     }
     function mostrarCategorias($categorias){
         $this->smarty->assign('categorias', $categorias);
-        $this->smarty->display('templates/modificarCategoria.tpl');
+        $this->smarty->display('templates/modificarCategorias.tpl');
     }
+    function mostrarFormCategorias($id){
+        $this->smarty->assign('id',$id);
+        $this->smarty->display('templates/mostrarFormCategorias.tpl');
+    }
+
 }

@@ -64,6 +64,13 @@ class Model{
        $query = $db->prepare('UPDATE `producto` SET `nombre_producto` = ?, `detalle` = ?, `precio_producto` = ?, `id_categorias_fk` = ? WHERE `producto`.`id_productos` = ?;'); 
         return $query->execute([$producto, $detalle, $precio,$categoria,$id]);
     }
+    function modificarCategoria($newCategoria,$id){
+        $db = new PDO('mysql:host=localhost;'.'dbname=db_bares;charset=utf8', 'root', '');
+        $query = $db->prepare("UPDATE `categoria` SET `nombre_categoria` = '?' WHERE `categoria`.`id_categoria` = ?");
+        /* ('UPDATE `categoria` SET `nombre_categoria` = ?  WHERE `categoria`.`id_categoria` = ?; ');  */
+        $query->execute([$newCategoria,$id]);
+
+    }
    
 
 }
