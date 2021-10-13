@@ -6,16 +6,14 @@ class Controlador
 {
     private $model;
     private $view;
-    public function __construct()
-    {
+    public function __construct(){
         $this->authHelper = new AuthHelper();
         $this->model = new Model();
         $this->view = new View();
         session_start();
     }
 
-    function renderHome()
-    {
+    function renderHome(){
         $this->authHelper->checkActivity();
         $producto = $this->model->obtenerTodosLosDatos();
         $categoria = $this->model->obtenerSoloCategorias();
@@ -29,6 +27,7 @@ class Controlador
         $this->view->Home($filtroCategorias, $categorias);
         $_SESSION['LAST_ACTIVITY'] = time();
     }
+
     function detalleProducto($id){
         $this->authHelper->checkActivity();
         $categorias= $this->model->obtenerSoloCategorias();
@@ -40,6 +39,7 @@ class Controlador
         $this->view->mostrarDetalle($nombre, $categoria, $precio, $detalle,$categorias);
         $_SESSION['LAST_ACTIVITY'] = time();
     }
+    
     function seccionAdmin(){
         $this->authHelper->checkLogin();
         $this->authHelper->checkActivity();
@@ -75,17 +75,13 @@ class Controlador
             $this->model->borrarCategoria($categoria);
         }
         $borrar = $this->model->borrar($id);
-        /* $this->view->borrarr($borrar); */
         $this->seccionAdmin();
         $_SESSION['LAST_ACTIVITY'] = time();
-        /* header("Location: " . ADMIN); */
     }
     function modificar($id){
         $this->authHelper->checkLogin();
         $this->authHelper->checkActivity();
         $categorias = $this->model->obtenerSoloCategorias();
-        /* var_dump($categorias);
-        echo "<br>". $categorias[0]->nombre; */
         $this->view->datos($id, $categorias);
         $_SESSION['LAST_ACTIVITY'] = time();
     }
@@ -98,7 +94,6 @@ class Controlador
         $categoria = $_REQUEST['categoria'];
         $id = $_REQUEST['id'];
         $_SESSION['LAST_ACTIVITY'] = time();
-        /* var_dump($categoria,$id); */
         $modificar = $this->model->modificar($producto, $precio, $detalle, $id, $categoria);
         if ($modificar) {
             header("Location: " . ADMIN);
@@ -114,7 +109,8 @@ class Controlador
     function modificarCategorias($id){
         $this->authHelper->checkLogin();
         $this->authHelper->checkActivity();
-        $this->view->mostrarFormCategorias($id);
+        $categorias = $this->model->obtenerSoloCategorias();
+        $this->view->mostrarFormCategorias($id, $categorias);
     }
     function confirmarModificacion(){
         echo "aca";

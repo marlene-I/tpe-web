@@ -23,33 +23,32 @@ $params = explode('/', $action);
 switch ($params[0]) {
     case 'home':
         $controller->renderHome();
-        break;
+    break;
     case 'nombre_categoria':
         $controller->filtradoCategorias($params[1]);
-        break;
+    break;
     case 'detalle':
         $controller->detalleProducto($params[1]);
-        break;
+    break;
     case 'admin':
         $controller->seccionAdmin();
-        break;
+    break;
     case 'registro':
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $controllerIngreso->crearUsuario();
         } else {
             $controllerIngreso->seccionRegistro();
         }
-        break;
-
+    break;
     case 'agregar':
         $controller->agregar();
-        break;
+    break;
     case 'borrar':
         $controller->borrardatos($params[1]);
-        break;
+    break;
     case 'modificar':
         $controller->modificar($params[1]);
-        break;
+    break;
     case 'modificarCategorias':
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $controller->confirmarModificacion();
@@ -58,25 +57,24 @@ switch ($params[0]) {
         } else {
             $controller->showCategorias();
         }
-        break;
+    break;
     case 'borrarCategoria':
         $controller->borrarCategoria($params[1]);
-        break;
+    break;
     case 'confirmar':
         $controller->confirmform();
-        break;
+    break;
     case 'login':
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $controllerIngreso->login();
         } else {
             $controllerIngreso->mostrarLogin();
         }
-        break;
+    break;
     case 'logout':
         $authHelper->logout();
-        break;
-
+    break;
     default:
         echo "404 -Página no encontrada";
-        break;
+    break;
 }
