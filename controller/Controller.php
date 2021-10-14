@@ -1,52 +1,51 @@
 <?php
 require_once('model/Model.php');
 require_once('view/View.php');
+require_once('model/ModelCateg.php');
 include_once('helpers/auth.helper.php');
 class Controlador
 {
     private $model;
     private $view;
+    private $modelCateg;
     public function __construct(){
         $this->authHelper = new AuthHelper();
         $this->model = new Model();
         $this->view = new View();
-        session_start();
+        $this->modelCateg = new ModelCateg();
+  
     }
 
     function renderHome(){
         $this->authHelper->checkActivity();
         $producto = $this->model->obtenerTodosLosDatos();
-        $categoria = $this->model->obtenerSoloCategorias();
-        $_SESSION['LAST_ACTIVITY'] = time();
+        $categoria = $this->modelCateg->obtenerCategorias();
         $this->view->Home($producto, $categoria);
     }
 
     function filtradoCategorias($categoria){
-        $categorias = $this->model->obtenerSoloCategorias();
-        $filtroCategorias = $this->model->filtrarCategorias($categoria);
+        $categorias = $this->modelCateg->obtenerCategorias();
+        $filtroCategorias = $this->modelCateg->filtrarCategorias($categoria);
         $this->view->Home($filtroCategorias, $categorias);
-        $_SESSION['LAST_ACTIVITY'] = time();
     }
 
     function detalleProducto($id){
         $this->authHelper->checkActivity();
-        $categorias= $this->model->obtenerSoloCategorias();
+        $categorias= $this->modelCateg->obtenerCategorias();
         $infoProducto = $this->model->obtenerInfoProducto($id);
         $nombre = $infoProducto[0]->nombre;
         $categoria = $infoProducto[0]->nombre_categoria;
         $precio = $infoProducto[0]->precio;
         $detalle  = $infoProducto[0]->detalle;
         $this->view->mostrarDetalle($nombre, $categoria, $precio, $detalle,$categorias);
-        $_SESSION['LAST_ACTIVITY'] = time();
     }
     
     function seccionAdmin(){
         $this->authHelper->checkLogin();
         $this->authHelper->checkActivity();
         $producto = $this->model->obtenerTodosLosDatos();
-        $categorias = $this->model->obtenerSoloCategorias();
+        $categorias = $this->modelCateg->obtenerCategorias();
         $this->view->admin($categorias, $producto);
-        $_SESSION['LAST_ACTIVITY'] = time();
     }
     
     function agregar(){
@@ -54,7 +53,7 @@ class Controlador
         $this->authHelper->checkActivity();
         if (isset($_GET['nombre_categoria'])) {
             $categoria = $_GET['nombre_categoria'];
-            $this->model->agregarCategoria($categoria);
+            $this->modelCateg->agregarCategoria($categoria);
         } else {
             $producto = $_GET['producto'];
             $precio = $_GET['precio'];
@@ -62,9 +61,6 @@ class Controlador
             $categoria = $_GET['categoria'];
             $this->model->agregar($producto, $precio, $detalle, $categoria);
         }
-
-        $_SESSION['LAST_ACTIVITY'] = time();
-
         header("Location: " . ADMIN);
     }
     function borrardatos($id){
@@ -72,18 +68,16 @@ class Controlador
         $this->authHelper->checkActivity();
         if (isset($_GET['nombre_categoria'])) {
             $categoria = $_GET['nombre_categoria'];
-            $this->model->borrarCategoria($categoria);
+            $this->modelCateg->borrarCategoria($categoria);
         }
         $borrar = $this->model->borrar($id);
         $this->seccionAdmin();
-        $_SESSION['LAST_ACTIVITY'] = time();
     }
     function modificar($id){
         $this->authHelper->checkLogin();
         $this->authHelper->checkActivity();
-        $categorias = $this->model->obtenerSoloCategorias();
+        $categorias = $this->modelCateg->obtenerCategorias();
         $this->view->datos($id, $categorias);
-        $_SESSION['LAST_ACTIVITY'] = time();
     }
     function confirmform(){
         $this->authHelper->checkLogin();
@@ -93,7 +87,6 @@ class Controlador
         $detalle = $_REQUEST['detalle'];
         $categoria = $_REQUEST['categoria'];
         $id = $_REQUEST['id'];
-        $_SESSION['LAST_ACTIVITY'] = time();
         $modificar = $this->model->modificar($producto, $precio, $detalle, $id, $categoria);
         if ($modificar) {
             header("Location: " . ADMIN);
@@ -103,25 +96,24 @@ class Controlador
     function showCategorias(){
         $this->authHelper->checkLogin();
         $this->authHelper->checkActivity();
-        $categorias = $this->model->obtenerSoloCategorias();
+        $categorias = $this->modelCateg->obtenerCategorias();
         $this->view->mostrarCategorias($categorias);
     }
     function modificarCategorias($id){
         $this->authHelper->checkLogin();
         $this->authHelper->checkActivity();
-        $categorias = $this->model->obtenerSoloCategorias();
+        $categorias = $this->modelCateg->obtenerCategorias();
         $this->view->mostrarFormCategorias($id, $categorias);
     }
     function confirmarModificacion(){
         echo "aca";
         $newCat = $_REQUEST['categoria'];
         $id = $_REQUEST['id'];
-        $this->model->modificarCategoria($newCat, $id);
-        $_SESSION['LAST_ACTIVITY'] = time();
+        $this->modelCateg->modificarCategoria($newCat, $id);
         header("Location: " . ADMIN." /modificarCategorias");
     }
     function borrarCategoria($id){
-        $this->model->borrarCategoria($id);
+        $this->modelCateg->borrarCategoria($id);
         header("Location: " . ADMIN." /modificarCategorias");
 
     }

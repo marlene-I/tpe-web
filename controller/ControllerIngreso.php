@@ -2,18 +2,21 @@
 require_once('model/ModelIngreso.php');
 require_once('view/ViewIngreso.php');
 include_once('helpers/auth.helper.php');
+require_once('model/ModelCateg.php');
+
 class ControladorIngreso{ 
     private $model;
     private $view;
+    private $modelCateg;
     public function __construct(){
         $this->authHelper = new AuthHelper();
         $this->model = new ModelIngreso();
         $this->view = new ViewIngreso();
-      
+        $this->modelCateg = new ModelCateg();
     }
     
     function mostrarLogin($error=null){
-        $categorias = $this->authHelper->obtenerCategorias();
+        $categorias = $this->modelCateg->obtenerCategorias();
         $this->view->showLoginForm($categorias,$error);
     }
     
@@ -24,9 +27,7 @@ class ControladorIngreso{
         }
         $userData = $this->model->getUserData($usuario);
         if ($usuario && password_verify($password, $userData->password)){
-            $_SESSION['USER_ID'] = $userData->id;
-            $_SESSION['USER_EMAIL'] = $userData->email;
-            $_SESSION['LAST_ACTIVITY'] = time();
+            $this->authHelper->login($userData);
             header("Location: " . ADMIN);
         } else {
             $this->mostrarLogin("Usuario y/o contraseña inválidos");
@@ -35,10 +36,8 @@ class ControladorIngreso{
     function seccionRegistro(){
         $this->authHelper->checkLogin();
         $this->authHelper->checkActivity();
-        $categorias = $this->authHelper->obtenerCategorias();
+        $categorias = $this->modelCateg->obtenerCategorias();
         $this->view->mostrarFormRegistro($categorias);
-        $_SESSION['LAST_ACTIVITY'] = time();
-
     }
     function crearUsuario(){
         $this->authHelper->checkLogin();
@@ -50,7 +49,6 @@ class ControladorIngreso{
         $password = password_hash($_REQUEST['password-1'], PASSWORD_DEFAULT);
         $usuario = $_REQUEST['usuario'];
         $this->model->crearUsuario($password,$usuario);
-        $_SESSION['LAST_ACTIVITY'] = time();
         header("Location: " . ADMIN);
     }
     
