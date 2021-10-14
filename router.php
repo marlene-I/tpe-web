@@ -47,7 +47,7 @@ switch ($params[0]) {
         $controller->borrardatos($params[1]);
     break;
     case 'modificar':
-        $controller->modificar($params[1]);
+            $controller->modificar($params[1]);
     break;
     case 'modificarCategorias':
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {

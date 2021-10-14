@@ -5,7 +5,7 @@
     <input type="text" class="form-control mt-2" name="detalle" placeholder="Detalle del producto">
     {include file="select.tpl"}
     <input type="hidden" value="{$id}" class="form-control mt-2 " name="id">
-    <a href="modificar" class="btn btn-danger mt-2" >cancelar</a>
-    <button type="submit" class="btn btn-outline-success mt-2" >confirmar</button>                 
+    <button type="submit" class="btn btn-outline-success mt-2" >Confirmar</button>                 
+    <a href="admin" class="btn btn-danger mt-2" >Cancelar</a>
 </form>
 {include file="footer.tpl"}
