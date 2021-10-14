@@ -4,7 +4,6 @@ class Model{
     public function __construct(){ 
         $this->db = new PDO('mysql:host=localhost;'.'dbname=db_bares;charset=utf8', 'root', '');
     }
-    /* FUNCIONES PARA PRODUCTOS */
 
     public function obtenerTodosLosDatos(){
         $query = $this->db->prepare('SELECT a.nombre_producto, a.precio_producto, a.id_productos, a.id_categorias_fk, b.nombre_categoria, b.id_categoria FROM producto a INNER JOIN categoria b ON a.id_categorias_fk = b.id_categoria');
