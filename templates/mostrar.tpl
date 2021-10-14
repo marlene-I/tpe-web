@@ -14,7 +14,7 @@
                         <td>{$producto->nombre_producto}</td>
                         <td>${$producto->precio_producto}</td>
                          <td>{$producto->nombre_categoria}</td>
-                         <td><a href="detalle/{$producto->id_productos}" class = "btn btn-outline-danger">Ver detalle</a></td>
+                         <td><a href="detalle/{$producto->id_productos}" class = "btn btn-outline-success">Ver detalle</a></td>
                     </tr>
             {/foreach}
         </tbody>    
