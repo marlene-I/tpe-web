@@ -12,7 +12,7 @@ let span = document.querySelector("#id_producto"); //**CHA**
 
 let id_producto = span.innerHTML; //Captura el id de producto del que se quieren mostrar los comentarios
 
-const API_URL = "api/comentarios/productos/"+id_producto;
+const API_URL = "api/comentarios/productos/" +id_producto;
 
 
 async function getComments(){ //Fetchea comentarios para producto dado e imprime con Vue

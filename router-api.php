@@ -8,7 +8,9 @@
     // Defino tabla de routeo
         //Revisar nombre de $URL y nombre de $method (pasados por parametros al Router)
     $router->addRoute('menu', 'GET', 'apiMenuController', 'getMenu'); //Borrar
-    $router->addRoute('comentarios/productos/:ID', 'GET', 'apiCommentController', 'getAll'); //Es correcto comentario/:ID_producto
+    // $router->addRoute('productos/:ID/comentarios', 'GET', 'apiCommentController', 'getAll'); //Es correcto comentario/:ID_producto
+    $router->addRoute('comentarios/productos/:ID', 'GET', 'apiCommentController', 'getAll'); //
+    //**CHECK CUAL DE LOS ENDPOINTS ES CORRECTO 'productos/:ID/comentarios  O  'comentarios/productos/:ID'
     $router->addRoute('comentarios/productos/:ID', 'POST', 'apiCommentController', 'insertComment');
 
     $resource = $_GET['resource'];
