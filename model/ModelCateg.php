@@ -5,7 +5,7 @@ class ModelCateg{
        $this->db = new PDO('mysql:host=localhost;'.'dbname=db_bares;charset=utf8', 'root', '');
     }
 
-    function filtrarCategorias($dato){
+    function filtrarCategorias($dato){ //$dato variable no descriptiva
         $query =  $this->db->prepare(
         'SELECT `producto`.*,`categoria`.* FROM `producto` 
         INNER JOIN `categoria` ON `categoria`.`id_categoria`= `producto`.`id_categorias_fk`

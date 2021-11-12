@@ -13,12 +13,13 @@ class View{
         $this->smarty->display('templates/home.tpl');      
     }
     
-    function mostrarDetalle($nombre,$categoria,$precio,$detalle,$categorias){
+    function mostrarDetalle($nombre,$categoria,$precio,$detalle,$id_producto,$categorias){
         $this->smarty->assign('categorias',$categorias);
         $this->smarty->assign('nombre', $nombre);
         $this->smarty->assign('categoria', $categoria);
         $this->smarty->assign('precio', $precio);
         $this->smarty->assign('detalle', $detalle);
+        $this->smarty->assign('id_producto', $id_producto);
         $this->smarty->display('templates/detalle.tpl');
     }
 

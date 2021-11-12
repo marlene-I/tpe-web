@@ -37,7 +37,7 @@ class Controlador
         $categoria = $infoProducto[0]->nombre_categoria;
         $precio = $infoProducto[0]->precio;
         $detalle  = $infoProducto[0]->detalle;
-        $this->view->mostrarDetalle($nombre, $categoria, $precio, $detalle,$categorias);
+        $this->view->mostrarDetalle($nombre, $categoria, $precio, $detalle, $id, $categorias);
     }
     
     function seccionAdmin(){
