@@ -7,7 +7,7 @@
             $this->db = new PDO('mysql:host=localhost;'.'dbname=db_bares;charset=utf8', 'root', '');
         }
         function getAll($id_producto){
-            $query = $this->db->prepare('SELECT U.nombre, C.ID, C.comentario, C.puntuacion
+            $query = $this->db->prepare('SELECT U.nombre, C.id, C.comentario, C.puntuacion
             FROM usuarios AS U
             RIGHT JOIN comentarios AS C
             ON U.id = C.id_usuario
@@ -17,8 +17,9 @@
             $comentarios = $query->fetchAll(PDO::FETCH_OBJ);
             return $comentarios;
         }
-        function eraseOne($id_comment, $id_producto){
-
+        function eraseOne($id_comment){
+            $query = $this->db->prepare('DELETE FROM comentarios WHERE id=?');
+            $query->execute([$id_comment]);
         }
         function insert($id_prod, $comment, $id_usuario, $puntuacion){
             $query = $this->db->prepare('INSERT INTO `comentarios` 

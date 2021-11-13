@@ -10,6 +10,7 @@
     <a href="home" type="button" class="btn btn-outline-success mt-2">HOME</a>
     <div class="list-group " v-bind: > <!-- Agregar estilo a este div corregir **CHA** -->
         <span id="id_producto" hidden>{$id_producto}</span>   <!--  //PREGUNTAR **CHA** Cambiar a pasar id por atributo-->
+        <h2 class="p-2" >Comentarios</h2>
         {include file = "Vue/commentsVue.tpl"}
     </div>
     

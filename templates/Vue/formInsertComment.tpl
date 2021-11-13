@@ -1,4 +1,4 @@
-<div class="container list-group-item">
+<div class="container border border-info list-group-item">
     <h4>Ingrese comentario</h4>
     <form action="comentar" method="post" id="post-comment-f"> 
         <div class="form-group">

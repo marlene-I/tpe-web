@@ -11,20 +11,19 @@ class apiCommentController{
         $this->model = new CommentModel();
         $this->view = new apiView();
     }
-    public function getAll($id_producto){ //PENSAR LA FORMA DE PASAR POR PARAMETRO EL ID DE PRODUCTO 
-        //SEGURAMENTE SEA NECESARIO REESCRIBIR EL ENDPOINT === comentario/id_producto. es correcto?
-        $ID_producto = $id_producto[":ID"];
-        $comments = $this->model->getAll($ID_producto);
+
+    public function getAll($params = null ){  //Obtiene todos los comentarios y los retorna como JSON
+        $id_producto = $params[":ID"]; //**CHAN**
+        $comments = $this->model->getAll($id_producto);
         if($comments)
             $this->view->response($comments, 200);
         else
-            $this->view->response("Error",404);
+            $this->view->response("No encontrado",404);
     }
 
-    public function insertComment( ){
+    public function insertComment( ){ //Inserta un comentario, checkea el insert y lo devuelve como JSON
         $input = $this->getBody();
 
-    /* $this->view->response($input, 200); */
         $id_producto = $input->id_producto;
         $id_usuario = $input->id_usuario;
         $comentario = $input->comentario;
@@ -38,7 +37,14 @@ class apiCommentController{
             $this->view->response($nComment, 200);
         else
             $this->view->response("Comentario no encontrado", 500);
-             
+    }
+
+    public function eraseComment($params = null){ //Elimina el comentario y devuelve el id del comentario eliminado 
+        // $id_prod = $params[":ID_PROD"]; CREO QUE NO NECESITO ESTE PARAMETRO
+        $id_comment = $params[":ID_COMMENT"];
+        
+        $comment = $this->model->eraseOne($id_comment);
+        
     }
 
     private function getBody(){
