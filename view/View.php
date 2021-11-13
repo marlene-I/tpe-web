@@ -33,7 +33,7 @@ class View{
   
         $this->smarty->assign('categorias', $categorias);
         $this->smarty->assign('id', $id);
-        $this->smarty->display('templates/modificar.tpl');
+        $this->smarty->display('templates/modificarProd.tpl');
     }
 
     function mostrarCategorias($categorias){

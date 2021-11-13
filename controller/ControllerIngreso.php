@@ -34,8 +34,8 @@ class ControladorIngreso{
         }
     }
     function seccionRegistro(){
-        $this->authHelper->checkLogin();
-        $this->authHelper->checkActivity();
+        // $this->authHelper->checkLogin();
+        // $this->authHelper->checkActivity();
         $categorias = $this->modelCateg->obtenerCategorias();
         $this->view->mostrarFormRegistro($categorias);
     }

@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link rel="stylesheet" type="text-css" href="css/style.css">
@@ -41,19 +41,20 @@
 
                             <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
                                 {foreach from=$categorias item=categoria}
-                                <li><a href="nombre_categoria/{$categoria->nombre}"
-                                        class="dropdown-item">{$categoria->nombre}</a></li>
+                                <li>
+                                    <a href="nombre_categoria/{$categoria->nombre}" class="dropdown-item">{$categoria->nombre}</a>
+                                </li>
                                 {/foreach}
                             </ul>
 
                         </li>
                         {if isset($smarty.session.USER_ID)}
                         <li class="nav-item "><a href="admin" class="nav-link me-2">Admin</a></li>
-                        <li class="nav-item "><a href="registro" class="nav-link">Registro</a></li>
                         <li class="nav-item ">
                             <a href="logout" class="nav-link">Cerrar sesión({$smarty.session.USER_EMAIL})</a>
                         </li>
                         {else}
+                        <li class="nav-item "><a href="registro" class="nav-link">Registro</a></li>
                         <li class="nav-item px-5"><a href="login" class="nav-link">Ingresar</a></li>
                         {/if}
                     </ul>
