@@ -22,17 +22,21 @@
     <header>
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="d-flex justify-content-around container-fluid">
+            <div class=" d-flex justify-content-around container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false"
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <div class="collapse navbar-collapse " id="navbarTogglerDemo01">
                     <ul class="navbar-nav">
-                        <li class="nav-item "><a href="" class="nav-link">Home</a></li>
-                        <li class="nav-item  "><a href="" class="nav-link">Menu</a></li>
+                        <li class="nav-item ">
+                            <a href="" class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item  ">
+                            <a href="" class="nav-link">Menu</a>
+                        </li>
                         <li class="nav-item dropdown ">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -48,14 +52,23 @@
                             </ul>
 
                         </li>
+                        {if ($smarty.session.USER_ROL eq 1)}
+                        <li class="nav-item ">
+                            <a href="admin" class="nav-link me-2">Administrar Productos</a>
+                        </li><li class="nav-item ">
+                            <a href="usuarios" class="nav-link me-2">Administrar Usuarios</a>
+                        </li>
+                        {/if}
                         {if isset($smarty.session.USER_ID)}
-                        <li class="nav-item "><a href="admin" class="nav-link me-2">Admin</a></li>
                         <li class="nav-item ">
                             <a href="logout" class="nav-link">Cerrar sesión({$smarty.session.USER_EMAIL})</a>
                         </li>
                         {else}
-                        <li class="nav-item "><a href="registro" class="nav-link">Registro</a></li>
-                        <li class="nav-item px-5"><a href="login" class="nav-link">Ingresar</a></li>
+                        <li class="nav-item ">
+                            <a href="registro" class="nav-link">Registro</a>
+                        </li>
+                        <li class="nav-item "><a href="login" class="nav-link">Ingresar</a>
+                        </li>
                         {/if}
                     </ul>
                 </div>

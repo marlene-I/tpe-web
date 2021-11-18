@@ -8,11 +8,17 @@
 
     </div>
     <a href="home" type="button" class="btn btn-outline-success mt-2">HOME</a>
-    <div class="list-group " v-bind: > <!-- Agregar estilo a este div corregir **CHA** -->
-        <span id="id_producto" hidden>{$id_producto}</span>   <!--  //PREGUNTAR **CHA** Cambiar a pasar id por atributo-->
-        <h2 class="p-2" >Comentarios</h2>
+    {if isset($smarty.session.USER_ID)}
+    <div class="list-group" id="data-div" id-producto={$id_producto} id-usuario={$smarty.session.USER_ID} >
+        <h2 class="p-2 pt-3 bg-light border-bottom text-justify" >Nuestros clientes dicen:</h2>
         {include file = "Vue/commentsVue.tpl"}
     </div>
+    {else}
+    <div class="list-group" id="data-div" id-producto={$id_producto} >
+        <h2 class="p-2 pt-3 bg-light border-bottom text-justify" >Nuestros clientes dicen:</h2>
+        {include file = "Vue/commentsVue.tpl"}
+    </div>
+    {/if}
     
 </div>
 <script src="js/comment.js"></script>

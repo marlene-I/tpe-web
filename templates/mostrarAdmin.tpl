@@ -5,7 +5,9 @@
                 <th>Producto</th>
                 <th>Precio</th>
                 <th>Categoria</th>
+                <th></th>
                 <th>Acciones</th>
+                <th></th>
             </tr>
         </thead>
         <tbody class="table table-responsive">

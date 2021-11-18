@@ -5,26 +5,32 @@ let appComments = new Vue ({
     data: {
         comments: [],
         empty: null,
+        html: "",
+        htmlBolean: true,
     },
     methods: {
         delComment(id_comment){
+
              //Se agrega metodo de Vue que llame a la funcion delComment desde el html (pasando por param el ID de coment)
             deleteComment(id_comment);
-        }
+        },
+        
+
     }
 })
 
-let span = document.querySelector("#id_producto"); //**CHA** 
-let id_producto = span.innerHTML; //Captura el id de producto del que se quieren mostrar los comentarios
+let div_data = document.querySelector("#data-div"); //**CHA** 
+let id_producto = div_data.getAttribute('id-producto'); //Captura el id de producto del que se quieren mostrar los comentarios
+let id_usuario = div_data.getAttribute('id-usuario');
 const API_URL = "api/comentarios/productos/" +id_producto;
-const API_URL_2 = "api//productos/"+id_producto+"/comentarios/" ;
+const API_URL_2 = "api/comentarios/" ;
 
 let div = document.querySelector("#comments"); //Div para user storie comentarios
 
 let commentForm = document.querySelector("#post-comment-f"); 
 commentForm.addEventListener('submit', insertComment);
 
-async function getComments(){ //Fetchea comentarios para producto dado e imprime con Vue
+async function getComments(){ //Fetchea comentarios para un producto dado e imprime con Vue
     appComments.empty = null;
     try {
         let response = await fetch(API_URL);
@@ -33,7 +39,7 @@ async function getComments(){ //Fetchea comentarios para producto dado e imprime
         if (response.status == 200) {
             appComments.comments = resComments; //Renderiza los comentarios desde Vue
         } else {
-            appComments.empty = "No hay comentarios aun"
+            appComments.empty = "No hay comentarios aun. Comenta!   "
         }
     }catch(e) {
         console.log(e);
@@ -45,11 +51,12 @@ async function insertComment(e){ //Agrega un comentario nuevo a través de la AP
     let inputComment = new FormData(commentForm);
     let newComment = {
         id_producto: id_producto,
-        id_usuario: "1",
+        id_usuario: id_usuario,
         comentario: inputComment.get('comentario'),
         puntuacion: inputComment.get('puntuacion'),
     }
-
+    console.log(newComment)
+    
     try {
         console.log("inside try");
         let response = await fetch(API_URL, {
@@ -60,12 +67,15 @@ async function insertComment(e){ //Agrega un comentario nuevo a través de la AP
             body: JSON.stringify(newComment),
         })
 
-
         if(response.ok){
+            appComments.html = await response.text();
+            console.log(appComments.html)   
             let comment = await response.json();
             appComments.comments.push = comment;
             getComments();
 
+        }else{
+            console.log(response.status)
         }
     } catch (error) {
         console.log(error);
@@ -79,12 +89,12 @@ async function deleteComment(comment_id){ //Elimina un comentario dado por ID
                 "Content-Type": "application/json",
             },
         });
-
         if(response.ok){
             appComments.comments.forEach(comment => { //loop en el arreglo Vue para borrar el comentario que matchee ID
                 if (comment.id == comment_id) {
                     appComments.comments.pop(comment.id);
-                }                
+                }
+                             
             });
             //**CHECK** que es lo mas prolijo, borrar y traer la tabla devuelta
             // o borrar de la BD y si esta todo OK borrar del arreglo de comentarios????

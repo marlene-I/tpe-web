@@ -1,6 +1,6 @@
 <?php
 
-    class apiView{
+    class ApiView{
      
         public function response($data, $code=200){ //Convierte la información que recibe al formato JSON
             //Header que describe la respuesta

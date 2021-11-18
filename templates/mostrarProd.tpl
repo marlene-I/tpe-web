@@ -6,6 +6,7 @@
                 <th>Precio</th>
                 <th>Categoria</th>
                 <th>Acciones</th>
+                
             </tr>
         </thead>
         <tbody>

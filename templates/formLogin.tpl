@@ -1,11 +1,20 @@
 {include file="header.tpl"}
 
 <div class="mt-5 w-25 mx-auto">
+    <h4 class="p-3">Ingresá tu usuario y contraseña</h4> 
     <form action="login" method="post" >
-        <div class="form-group">
-            <input class="form-control" type="text" placeholder="Usuario" name="usuario">
-            <input class="form-control" type="password" placeholder="Contraseña" name="password">
-            <button class="form-control btn btn-dark mt-3" type="submit">Ingresar</button>
+            <div class="form-group">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" required="required" placeholder="Usuario" name="usuario">
+                <label for="floatingInput">Usuario</label>
+              </div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="floatingInput" required="required" placeholder="Contraseña" name="password">
+                <label for="floatingInput">Contraseña</label>
+              </div>
+            <div class="d-flex justify-content-center">
+                <button class="form-control btn btn-dark mt-3 w-50 " type="submit">Ingresar</button>
+            </div>  
         </div>
     </form>
 </div>

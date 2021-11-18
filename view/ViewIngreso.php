@@ -18,4 +18,15 @@ class ViewIngreso{
         $this->smarty->assign('error', $error);
         $this->smarty->display('templates/formRegistro.tpl');
     }
+    function accesoDenegado(){
+        $this->smarty->display('templates/accesoDenegado.tpl');
+    }
+
+    function showUserAdmin($users, $categorias=null, $error=null, $numAdmins=NULL){
+        $this->smarty->assign('categorias', $categorias);
+        $this->smarty->assign('error', $error);
+        $this->smarty->assign('users',$users);
+        $this->smarty->assign('numAdmins', $numAdmins); //**CHECK */
+        $this->smarty->display('templates/userAdmin.tpl');
+    }
 }

@@ -10,6 +10,9 @@ $authHelper = new AuthHelper();
 define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
 define('LOGIN', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/login');
 define('ADMIN', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/admin');
+define('USERS', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/usuarios');
+define('DENIED_ACCESS', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/acceso-denegado');
+
 
 
 
@@ -33,9 +36,18 @@ switch ($params[0]) {
     case 'admin':
         $controller->seccionAdmin();
     break;
+    case 'usuarios':
+        $controllerIngreso->seccionUsuarios();
+    break;
+    case 'cambiarRol':
+        $controllerIngreso->cambiarRol();
+    break;
+    case 'borrarUsuario':
+        $controllerIngreso->delete($params[1]);
+    break;
     case 'registro':
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $controllerIngreso->crearUsuario();
+            $controllerIngreso->createUser();
         } else {
             $controllerIngreso->seccionRegistro();
         }
@@ -44,7 +56,7 @@ switch ($params[0]) {
         $controller->agregar();
     break;
     case 'borrar':
-        $controller->borrardatos($params[1]);
+        $controller->borrardatos($params[1]); //**CHECK variables descriptivas */
     break;
     case 'modificar':
             $controller->modificar($params[1]);
@@ -72,7 +84,10 @@ switch ($params[0]) {
         }
     break;
     case 'logout':
-        $authHelper->logout();
+        $controllerIngreso->logout();
+    break;
+    case 'acceso-denegado':
+        $controllerIngreso->accesoDenegado();
     break;
     default:
         echo "404 -Página no encontrada";
