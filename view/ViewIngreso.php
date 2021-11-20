@@ -10,16 +10,16 @@ class ViewIngreso{
     function showLoginForm($categorias=null,$error=null){
         $this->smarty->assign('error', $error);
         $this->smarty->assign('categorias', $categorias);
-        $this->smarty->display('templates/formLogin.tpl');  
+        $this->smarty->display('templates/form/formLogin.tpl');  
     }
 
-    function mostrarFormRegistro($categorias=null,$error=null){
+    function renderRegisterForm($categorias=null,$error=null){
         $this->smarty->assign('categorias', $categorias);
         $this->smarty->assign('error', $error);
-        $this->smarty->display('templates/formRegistro.tpl');
+        $this->smarty->display('templates/form/formRegister.tpl');
     }
-    function accesoDenegado(){
-        $this->smarty->display('templates/accesoDenegado.tpl');
+    function renderDeniedAccess(){
+        $this->smarty->display('templates/renderError.tpl');
     }
 
     function showUserAdmin($users, $categorias=null, $error=null, $numAdmins=NULL){
@@ -27,6 +27,6 @@ class ViewIngreso{
         $this->smarty->assign('error', $error);
         $this->smarty->assign('users',$users);
         $this->smarty->assign('numAdmins', $numAdmins); //**CHECK */
-        $this->smarty->display('templates/userAdmin.tpl');
+        $this->smarty->display('templates/section/sectionUsersAdmin.tpl');
     }
 }

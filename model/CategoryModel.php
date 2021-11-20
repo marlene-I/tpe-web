@@ -8,8 +8,8 @@ class CategoryModel{
     function getAll(){  
         $query =  $this->db->prepare('SELECT nombre_categoria AS nombre, id_categoria AS id FROM categoria');
         $query->execute();
-        $category = $query->fetchAll(PDO::FETCH_OBJ);
-        return $category;
+        $categories = $query->fetchAll(PDO::FETCH_OBJ);
+        return $categories;
     }
 
     function insert($category){
@@ -18,13 +18,20 @@ class CategoryModel{
     }
 
     function delete($category){
-        $query =  $this->db->prepare('DELETE FROM `categoria` WHERE `category`.`id_categoria` = ?');
+        $query =  $this->db->prepare('DELETE FROM `categoria` WHERE `categoria`.`id_categoria` = ?');
         $query->execute([$category]);
     }
 
     function modify($newCategory,$id){
-        $query =  $this->db->prepare("UPDATE `categoria` SET `nombre_categoria` = ? WHERE `category`.`id_categoria` = ?");
+        $query =  $this->db->prepare("UPDATE `categoria` SET `nombre_categoria` = ? WHERE `categoria`.`id_categoria` = ?");
         $query->execute([$newCategory,$id]);
 
+    }
+
+    function getCategory($id){
+        $query = $this->db->prepare('SELECT * FROM `categoria` WHERE id_categoria = ? ');
+        $query->execute([$id]);
+        $category = $query->fetchAll(PDO::FETCH_OBJ);
+        return $category;
     }
 }

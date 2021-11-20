@@ -11,5 +11,8 @@ class renderError{
     function responseError($errorMsg, $code){ //Qué es mejor tener esta función en este helper o llamar directo a la apiview (prolijidad)
         $this->apiView->response($errorMsg, $code);
     }
+    function renderError($error){
+        
+    }
 }
 ?>

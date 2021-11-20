@@ -22,7 +22,7 @@
         {/if}
     </div>
     <div>
-        {include file = "Vue/formInsertComment.tpl"}
+        {include file = "form/formInsertComment.tpl"}
 
     </div>
 

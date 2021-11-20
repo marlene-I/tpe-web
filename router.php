@@ -1,10 +1,13 @@
 <?php
 
-require_once('controller/Controller.php');
-require_once('controller/ControllerIngreso.php');
+require_once('controller/MenuController.php');
+require_once('controller/UserAdminController.php');
+require_once('controller/ProductAdminController.php');
 
-$controller = new Controlador();
-$controllerIngreso = new ControladorIngreso();
+//Controladores: 
+$productAdminController = new ProductAdminController();
+$userAdminController = new UserAdminController();
+$menuController = new MenuController();
 $authHelper = new AuthHelper();
 
 define('BASE_URL', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/');
@@ -12,7 +15,7 @@ define('LOGIN', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] .
 define('ADMIN', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/admin');
 define('USERS', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/usuarios');
 define('DENIED_ACCESS', '//' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']) . '/acceso-denegado');
-
+// define('URI_ADMIN', $_SERVER)
 
 
 
@@ -25,69 +28,72 @@ $params = explode('/', $action);
 
 switch ($params[0]) {
     case 'home':
-        $controller->renderHome();
+        $menuController->renderHome();
     break;
     case 'nombre_categoria':
-        $controller->filtradoCategorias($params[1]);
+        $menuController->filterByCat($params[1]);
     break;
     case 'detalle':
-        $controller->detalleProducto($params[1]);
+        $menuController->renderDetail($params[1]);
     break;
     case 'admin':
-        $controller->seccionAdmin();
+        $productAdminController->renderProductAdmin();
     break;
     case 'usuarios':
-        $controllerIngreso->seccionUsuarios();
+        $userAdminController->renderUsersAdmin();
     break;
     case 'cambiarRol':
-        $controllerIngreso->cambiarRol();
+        $userAdminController->modifyUserRole();
     break;
     case 'borrarUsuario':
-        $controllerIngreso->delete($params[1]);
+        $userAdminController->deleteUser($params[1]);
     break;
     case 'registro':
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $controllerIngreso->createUser();
+            $userAdminController->createUser();
         } else {
-            $controllerIngreso->seccionRegistro();
+            $userAdminController->renderRegister();
         }
     break;
-    case 'agregar':
-        $controller->agregar();
+    case 'agregar-producto':
+        $productAdminController->insertProd();
+
+    break;
+    case 'agregar-categoria':
+        $productAdminController->insertCateg();
+
     break;
     case 'borrar':
-        $controller->borrardatos($params[1]); //**CHECK variables descriptivas */
+        $productAdminController->deleteProd($params[1]); 
     break;
     case 'modificar':
-            $controller->modificar($params[1]);
+            $productAdminController->renderModifyProd($params[1]);
     break;
     case 'modificarCategorias':
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $controller->confirmarModificacion();
+            $productAdminController->modifyCateg();
         } else if (isset($params[1])) {
-            $controller->modificarCategorias($params[1]);
-        } else {
-            $controller->showCategorias();
+            $productAdminController->renderModifyCateg($params[1]);
         }
     break;
     case 'borrarCategoria':
-        $controller->borrarCategoria($params[1]);
+        $productAdminController->deleteCateg($params[1]);
     break;
     case 'confirmar':
-        $controller->confirmform();
+        $productAdminController->modifyProd();
     break;
     case 'login':
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $controllerIngreso->login();
+            $userAdminController->login();
         } else {
-            $controllerIngreso->mostrarLogin();
+            $userAdminController->renderLogin();
         }
     break;
     case 'logout':
-        $controllerIngreso->logout();
+        $userAdminController->logout();
     break;
     case 'acceso-denegado':
-        $controllerIngreso->accesoDenegado();
+        $userAdminController->renderDeniedAccess();
     break;
     default:
         echo "404 -Página no encontrada";

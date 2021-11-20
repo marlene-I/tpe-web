@@ -10,7 +10,7 @@ class View{
     function Home($producto, $categorias){ 
         $this->smarty->assign('categorias', $categorias);
         $this->smarty->assign('productos', $producto);
-        $this->smarty->display('templates/home.tpl');      
+        $this->smarty->display('templates/section/sectionHome.tpl');      
     }
     
     function mostrarDetalle($nombre,$categoria,$precio,$detalle,$id_producto,$categorias){
@@ -20,30 +20,25 @@ class View{
         $this->smarty->assign('precio', $precio);
         $this->smarty->assign('detalle', $detalle);
         $this->smarty->assign('id_producto', $id_producto);
-        $this->smarty->display('templates/detalleProd.tpl');
+        $this->smarty->display('templates/section/sectionDetail.tpl');
     }
 
-    function admin($categorias, $producto){
+    function sectionAdmin($categorias, $producto){
         $this->smarty->assign('categorias', $categorias);
         $this->smarty->assign('productos', $producto);
-        $this->smarty->display('admin.tpl');
+        $this->smarty->display('templates/section/sectionProductsAdmin.tpl');
     }
 
-    function datos($id,$categorias){
+    function renderModifyProduct($id,$categorias){
   
         $this->smarty->assign('categorias', $categorias);
         $this->smarty->assign('id', $id);
-        $this->smarty->display('templates/modificarProd.tpl');
-    }
-
-    function mostrarCategorias($categorias){
-        $this->smarty->assign('categorias', $categorias);
-        $this->smarty->display('templates/modificarCategorias.tpl');
+        $this->smarty->display('templates/form/formModifyProd.tpl');
     }
 
     function mostrarFormCategorias($id, $categorias){
         $this->smarty->assign('categorias', $categorias);
         $this->smarty->assign('id',$id);
-        $this->smarty->display('templates/mostrarFormCategorias.tpl');
+        $this->smarty->display('templates/form/formModifyCategory.tpl');
     }
 }

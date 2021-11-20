@@ -68,7 +68,7 @@ async function insertComment(e){ //Agrega un comentario nuevo a través de la AP
         })
 
         if(response.ok){
-            appComments.html = await response.text();
+            // appComments.html = await response.text();
             console.log(appComments.html)   
             let comment = await response.json();
             appComments.comments.push = comment;
