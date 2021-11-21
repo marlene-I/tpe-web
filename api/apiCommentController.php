@@ -7,11 +7,13 @@ class apiCommentController{
     private $model;
     private $apiView;
     private $authHelper;
+    
 
     public function __construct(){
         $this->model = new CommentModel();
         $this->apiView = new apiView();
         $this->authHelper= new AuthHelper();
+        
     }
 
     public function getAll($params = null ){  //Obtiene todos los comentarios y los retorna como JSON
@@ -25,7 +27,7 @@ class apiCommentController{
 
     public function insertComment( ){ //Inserta un comentario, checkea el insert y lo devuelve como JSON
         $access_level = "2";
-        $this->authHelper->getPermission($access_level);
+        $this->authHelper->getPermission($access_level, true);
 
         $input = $this->getBody();
 
@@ -46,7 +48,7 @@ class apiCommentController{
 
     public function eraseComment($params = null){ //Elimina el comentario y devuelve el id del comentario eliminado 
         $access_level = "1";
-        $this->authHelper->getPermission($access_level);
+        $this->authHelper->getPermission($access_level,true);
         $id_comment = $params[":ID_COMMENT"];
         
         $comment = $this->model->delete($id_comment);

@@ -40,7 +40,5 @@ class UserModel{
    function delete($user_id){
        $query = $this->db->prepare('DELETE FROM usuarios WHERE usuarios.id = ?');
        $query->execute([$user_id]);
-       
-       
    }
 }

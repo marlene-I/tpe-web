@@ -1,7 +1,7 @@
 <?php
  require_once('libs/Smarty.class.php');
  require_once('helpers/auth.helper.php');
-class ViewIngreso{
+class AccessView{
     private $smarty;
     function __construct(){
         $this->smarty = new Smarty();
@@ -18,15 +18,14 @@ class ViewIngreso{
         $this->smarty->assign('error', $error);
         $this->smarty->display('templates/form/formRegister.tpl');
     }
-    function renderDeniedAccess(){
+    function renderError($error=null){
+        $this->smarty->assign('error', $error);
         $this->smarty->display('templates/renderError.tpl');
     }
 
-    function showUserAdmin($users, $categorias=null, $error=null, $numAdmins=NULL){
+    function showUserAdmin($users, $categorias=null){
         $this->smarty->assign('categorias', $categorias);
-        $this->smarty->assign('error', $error);
         $this->smarty->assign('users',$users);
-        $this->smarty->assign('numAdmins', $numAdmins); //**CHECK */
         $this->smarty->display('templates/section/sectionUsersAdmin.tpl');
     }
 }

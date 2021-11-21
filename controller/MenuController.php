@@ -4,7 +4,9 @@ require_once('view/View.php');
 require_once('model/CategoryModel.php');
 include_once('helpers/auth.helper.php');
 class MenuController{
+
      //Gestiona renderización y navegación por el menu de productos.
+     
     private $productModel;
     private $view;
     private $categoryModel;
@@ -32,12 +34,13 @@ class MenuController{
     function renderDetail($id){
         $this->authHelper->checkActivity();
         $categories= $this->categoryModel->getAll();
+
         $infoProducto = $this->productModel->getProduct($id);
-        $nombre = $infoProducto[0]->nombre;
+        $name = $infoProducto[0]->nombre;
         $category = $infoProducto[0]->nombre_categoria;
-        $precio = $infoProducto[0]->precio;
-        $detalle  = $infoProducto[0]->detalle;
-        $this->view->mostrarDetalle($nombre, $category, $precio, $detalle, $id, $categories);
+        $price = $infoProducto[0]->precio;
+        $detail  = $infoProducto[0]->detalle;
+        $this->view->mostrarDetalle($name, $category, $price, $detail, $id, $categories);
     }
     
    

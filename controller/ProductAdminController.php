@@ -2,6 +2,7 @@
 <?php
     class ProductAdminController {
          //Gestiona ABM de productos y sus categorías(sección administrador de productos)
+         
         private $categoryModel;
         private $productModel;
         private $view;
@@ -18,10 +19,16 @@
         function renderProductAdmin(){ 
             $access_level = "1";
             $this->authHelper->getPermission($access_level);
+
             $product = $this->productModel->getAll();
             $categories = $this->categoryModel->getAll();
-            $this->view->sectionAdmin($categories, $product);
-        }
+            
+            if($product){
+                $this->view->sectionAdmin($categories, $product);
+            }else{
+                $this->renderErrorHelper->renderError("Error 404");
+            }
+    }
 
         //FUNCIONES DE ABM DE PRODUCTOS (y renderización necesaria)
         
@@ -43,19 +50,24 @@
 
             }else {
 
-                $this->renderErrorHelper->render("Ingresos inválidos");
+                $this->renderErrorHelper->renderError("Ingresos inválidos");
             }
         }
 
         function deleteProd($id){
             $access_level = "1";
             $this->authHelper->getPermission($access_level);
-            if (!empty($_GET['nombre_categoria'])) {
-                $category = $_GET['nombre_categoria'];
-                $this->categoryModel->delete($category);
+
+            $product = $this->productModel->getProduct($id);
+
+            if ($product) {
+                $deleted = $this->productModel->delete($id);
+                header("Location: " .ADMIN);
+
+            }else {
+                $this->renderErrorHelper->renderError("El producto no existe");
             }
-            $deleted = $this->productModel->delete($id);
-            header("Location: " .ADMIN);
+
         }
 
         function modifyProd(){
@@ -76,11 +88,11 @@
                 if ($modify) {
                     header("Location: " .ADMIN);
                 }else{
-                    $this->renderErrorHelper->render("No se pudo modificar");
+                    $this->renderErrorHelper->renderError("No se pudo modificar");
                 }
 
             }else{
-                $this->renderErrorHelper->render("Ingresos inválidos");
+                $this->renderErrorHelper->renderError("Ingresos inválidos");
             }
         }
         function renderModifyProd($id){
@@ -114,14 +126,14 @@
 
             $category = $this->categoryModel->getCategory($id);
 
-            if (!empty($category)) {
+            if ($category) {
 
                 $this->categoryModel->delete($id);
 
                 header("Location: " .ADMIN);
             }else{
 
-                $this->renderErrorHelper->render("La categoría no existe");
+                $this->renderErrorHelper->renderError("La categoría no existe");
             }
         }
     
@@ -136,7 +148,7 @@
                 $this->categoryModel->modify($newCat, $id);
                 header("Location: " .ADMIN);
             }else{
-                $this->renderErrorHelper->render("Ingreso inválido");
+                $this->renderErrorHelper->renderError("Ingreso inválido");
             }
         }
 

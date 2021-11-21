@@ -28,10 +28,10 @@
                         <input type="number"  class="form-control"  required="required" placeholder="Precio" name="precio">
                     </td>
                     <td>
-                        <input type="text"  class="form-control" required="required"  placeholder="Detalle" name="detalle">
+                        {include file="form/selectCategory.tpl"}
                     </td>
                     <td>
-                        {include file="form/selectCategory.tpl"}
+                        <input type="text"  class="form-control" required="required"  placeholder="Detalle" name="detalle">
                     </td>
                     <td>
                         <button type="submit" class="btn btn-success">Agregar</button>

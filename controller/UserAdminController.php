@@ -3,19 +3,21 @@ require_once('model/UserModel.php');
 require_once('view/ViewIngreso.php');
 include_once('helpers/auth.helper.php');
 require_once('model/CategoryModel.php');
+require_once('helpers/renderError.helper.php');
 
 
 class UserAdminController
 {
     private $userModel;
-    private $viewAccess;
-    private $viewApi;
+    private $accessView;
+    private $renderErrorHelper;
     private $categoryModel;
     public function __construct()
     {
         $this->authHelper = new AuthHelper();
+        $this->renderErrorHelper = new RenderErrorHelper();
         $this->userModel = new UserModel();
-        $this->viewAccess = new ViewIngreso();
+        $this->accessView = new AccessView();
         $this->categoryModel = new CategoryModel();
     }
 
@@ -23,12 +25,12 @@ class UserAdminController
 
     function renderLogin($error = null){
         $categories = $this->categoryModel->getAll();
-        $this->viewAccess->showLoginForm($categories, $error);
+        $this->accessView->showLoginForm($categories, $error);
     }
 
     function renderRegister($error=null){
         $categories = $this->categoryModel->getAll();
-        $this->viewAccess->renderRegisterForm($categories, $error);
+        $this->accessView->renderRegisterForm($categories, $error);
     }
 
     function renderUsersAdmin(){
@@ -38,17 +40,16 @@ class UserAdminController
         $users = $this->userModel->getAll();
         $categories = $this->categoryModel->getAll();
         if ($users) {
-            $this->viewAccess->showUserAdmin($users, null, $categories);
+            $this->accessView->showUserAdmin($users, $categories);
         } else {
-            $this->viewAccess->showUserAdmin(NULL, NULL, "ERROR 404");
+            $this->renderErrorHelper->renderError("Error 404");
         }
     }
 
     function renderDeniedAccess(){
-        $this->viewAccess->renderDeniedAccess();
+        $this->accessView->renderError();
     }
-
-    // 
+    
 
     function login(){
         if (!empty($_POST['usuario']) && !empty($_POST['password'])) {
@@ -73,7 +74,7 @@ class UserAdminController
         $this->authHelper->logout();
     }
 
-    function checkUserID($user_id, $users = null){ ///***CHECK no me gusta el flujo creo que se puede mejorar */
+    function checkUserID($user_id, $users = null){ 
         if (!$users) {
             $users = $this->userModel->getAll();
         }
@@ -126,10 +127,10 @@ class UserAdminController
                 $this->userModel->delete($user_id);
                 header("Location: " . USERS);
             }else{
-                $this->viewAccess->showUserAdmin(null, null, "Error, usuario no encontrado");
+                $this->renderErrorHelper->renderError("Error usuario no encontrado");
             }
         }else{
-            $this->viewAccess->showUserAdmin(null, null, "No es posible eliminar");
+                $this->renderErrorHelper->renderError("Error ingresos inválidos");
         }
     }
     
@@ -149,14 +150,13 @@ class UserAdminController
                     $this->userModel->setRole($user_id, $role_id);
                     $this->renderUsersAdmin(); //**CHECK está OK pedir devuelta los usuarios a la DB ??? */
                 } else {
-                    $this->viewAccess->showUserAdmin(null, null, "Error usuario no existe");
+                    $this->renderErrorHelper->renderError("Usuario no existe");
                 }
             }else{
-                $this->viewAccess->showUserAdmin(null, null, "No es posible realizar la modificación");
+                $this->renderErrorHelper->renderError("No es posible realizar la modificación");
             }
         }else{
-            $this->viewAccess->showUserAdmin(null,null,"Ingresos inválidos");
-
+                $this->renderErrorHelper->renderError("Error ingresos inválidos");
         }
     }
 }

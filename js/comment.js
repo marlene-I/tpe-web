@@ -5,8 +5,8 @@ let appComments = new Vue ({
     data: {
         comments: [],
         empty: null,
-        html: "",
-        htmlBolean: true,
+        status: null,
+        message: "",
     },
     methods: {
         delComment(id_comment){
@@ -14,8 +14,6 @@ let appComments = new Vue ({
              //Se agrega metodo de Vue que llame a la funcion delComment desde el html (pasando por param el ID de coment)
             deleteComment(id_comment);
         },
-        
-
     }
 })
 
@@ -32,6 +30,7 @@ commentForm.addEventListener('submit', insertComment);
 
 async function getComments(){ //Fetchea comentarios para un producto dado e imprime con Vue
     appComments.empty = null;
+
     try {
         let response = await fetch(API_URL);
         let resComments = await response.json();
@@ -55,10 +54,8 @@ async function insertComment(e){ //Agrega un comentario nuevo a través de la AP
         comentario: inputComment.get('comentario'),
         puntuacion: inputComment.get('puntuacion'),
     }
-    console.log(newComment)
     
     try {
-        console.log("inside try");
         let response = await fetch(API_URL, {
             method: "POST",
             headers:{
@@ -68,18 +65,21 @@ async function insertComment(e){ //Agrega un comentario nuevo a través de la AP
         })
 
         if(response.ok){
-            // appComments.html = await response.text();
-            console.log(appComments.html)   
+
             let comment = await response.json();
-            appComments.comments.push = comment;
-            getComments();
+            appComments.comments.push(comment);
 
         }else{
             console.log(response.status)
+        showStatus(response.status, "ins");
+
         }
+        showStatus(response.status, "ins");
+
     } catch (error) {
         console.log(error);
     }
+
 }
 async function deleteComment(comment_id){ //Elimina un comentario dado por ID
     try {
@@ -89,6 +89,7 @@ async function deleteComment(comment_id){ //Elimina un comentario dado por ID
                 "Content-Type": "application/json",
             },
         });
+
         if(response.ok){
             appComments.comments.forEach(comment => { //loop en el arreglo Vue para borrar el comentario que matchee ID
                 if (comment.id == comment_id) {
@@ -96,14 +97,51 @@ async function deleteComment(comment_id){ //Elimina un comentario dado por ID
                 }
                              
             });
-            //**CHECK** que es lo mas prolijo, borrar y traer la tabla devuelta
-            // o borrar de la BD y si esta todo OK borrar del arreglo de comentarios????
+        }else{
+            console.log(response.status);
         }
-        
+        showStatus(response.status, "del");
+
+
     } catch (error) {
         console.log(error);
     }
 
+}
+
+function showStatus(code, method = ""){ //Muestra un estado de la solicitud al usuario
+    let verb = "";
+    appComments.status = false;
+    switch (method) {
+        case "del":
+            verb = "borrado";
+            break;
+        case "ins":
+            verb = "agregado";
+            break;
+        default:
+            verb = "??";
+            break;
+    }
+    switch (code) {
+        case 403:
+            appComments.message = "Error: no tenes los permisos para realizar esta acción";
+
+            break;
+        case 200:
+            appComments.message = "Su comentario fue "+verb+" con éxito";
+            appComments.status = true;
+
+            break;
+        default:
+            appComments.message = "Error";
+            break;
+    }
+
+    setTimeout(() => {
+        appComments.message = "";
+        appComments.status = null;
+    }, 2000);
 }
 
 getComments();

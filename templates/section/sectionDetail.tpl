@@ -10,7 +10,7 @@
         </div>
         <a href="home" type="button" class="btn btn-outline-success mt-2">HOME</a>
         {if isset($smarty.session.USER_ID)}
-        <div class="list-group  row" id="data-div" id-producto={$id_producto} id-usuario={$smarty.session.USER_ID} >
+        <div class="list-group  row" id="data-div" id-producto={$id_producto} id-usuario={$smarty.session.USER_ID} rol-id={$smarty.session.USER_ROL}>
             <h2 class="p-2 pt-3 bg-light border-bottom text-justify" >Nuestros clientes dicen:</h2>
             {include file = "vue/commentsVue.tpl"}
         </div>

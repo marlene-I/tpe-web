@@ -1,11 +1,14 @@
 <?php
+require_once 'api/apiView.php';
 
 class AuthHelper {
+    private $apiView;
     public function __construct(){
         //abre la sessión siempre para usar el helper
         if (session_status() != PHP_SESSION_ACTIVE) {
             session_start();
         }
+        $this->apiView = new ApiView;
     }
 
     function login($user){
@@ -15,15 +18,12 @@ class AuthHelper {
         $_SESSION['LAST_ACTIVITY'] = time();
     }
 
-    function checkLogin($api=null){
+    function checkLogin_Role(){
         if (empty($_SESSION['USER_ID'])) { 
-            //PROBLEMA de si esta funcion es llamada por la API no reconoce la redireccion
+            //PROBLEMA de si esta funcion es llamada por la API no reconoce la redireccion (devuelve como rta un html)
             //Solución: a- Creo otra función checkLogin b- Agrego un if($api) que llame una vista? 
             //c- Creo otra getPermission que retorne una rta, solo para usarla desde APICONTROLLERS
-            /* if($api){
-                $this->apiView->response
-            } */
-            header("Location: " . LOGIN);
+            return false;
         }else{
             return $_SESSION['USER_ROL'];
         }
@@ -42,14 +42,22 @@ class AuthHelper {
     //Compara con los datos almacenados en la sesion (comprueba que haya datos)
     function getPermission($permission_required, $api=null){ 
         $this->checkActivity();
-        $session_role = $this->checkLogin($api);
-        if($session_role == $permission_required){
-            return;
-        }else{
-            header("Location: ". DENIED_ACCESS);
-            die;          
-        }
+        $session_role = $this->checkLogin_Role();
+
+        switch ($session_role) {
+            case $permission_required:
+                return;
+                break;
+            default:
+                if($api){
+                    $this->apiView->response("Acceso denegado", 403);
+                    die;
+                }else{
+                    header("Location: ". DENIED_ACCESS);
+                }
+                break;
     }
+}
 
 
 

@@ -33,7 +33,11 @@
         }
 
         public function getComment($id_comment){
-            $query = $this->db->prepare('SELECT * FROM comentarios WHERE ID = ?');
+            $query = $this->db->prepare('SELECT C.id,C.id_producto,C.comentario,C.puntuacion,U.nombre 
+            FROM `comentarios` AS C 
+            INNER JOIN usuarios As U
+             ON C.id_usuario = U.id 
+             WHERE C.ID = ?');
             $query->execute([$id_comment]);
             $comment = $query->fetch(PDO::FETCH_OBJ);
             return $comment;

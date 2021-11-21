@@ -1,18 +1,19 @@
 <?php
 require_once 'api/apiView.php';
 
-class renderError{
+class RenderErrorHelper{
     private $apiView;
+    private $accessView;
 
     function __construct(){
         $this->apiView = new ApiView;
+        $this->accessView = new AccessView;
     }
 
-    function responseError($errorMsg, $code){ //Qué es mejor tener esta función en este helper o llamar directo a la apiview (prolijidad)
-        $this->apiView->response($errorMsg, $code);
-    }
-    function renderError($error){
-        
+     
+    function renderError($error = null){
+        $this->accessView->renderError($error);
+               
     }
 }
 ?>
