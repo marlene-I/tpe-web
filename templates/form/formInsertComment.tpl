@@ -1,6 +1,8 @@
-<div class="container border border-info list-group-item">
-    <h4>Ingrese comentario</h4>
+<div  class="container border border-info list-group-item">
     <form action="comentar" method="post" id="post-comment-f"> 
+    {if isset({$smarty.session.USER_ROL}) && {$smarty.session.USER_ROL} == 2}
+    <h4 >Ingrese comentario</h4>
+
         <div class="form-group">
             <div class="input-group-prepend">
                 <label for="Comentario" class="mt-2">Comentario</label>
@@ -23,5 +25,14 @@
             </div>
 
         </div>
+    {/if}
     </form>
+    {if isset({$smarty.session.USER_ROL}) && {$smarty.session.USER_ROL} != 2}
+    <div class="container">
+        <h3>Ingresá como usuario para comentar!</h3>
+        <a href="registro" type="button" class="btn btn-primary m-1"> Registrarse</a>
+        <a href="login" type="button" class="btn btn-primary m-1"> Ingresar</a>
+    </div>
+    {/if}
 </div>
+

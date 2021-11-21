@@ -18,11 +18,8 @@ class AuthHelper {
         $_SESSION['LAST_ACTIVITY'] = time();
     }
 
-    function checkLogin_Role(){
+    function checkLogin_Role(){ //Chequea que el usuario este logueado y devuelve el rol si lo está
         if (empty($_SESSION['USER_ID'])) { 
-            //PROBLEMA de si esta funcion es llamada por la API no reconoce la redireccion (devuelve como rta un html)
-            //Solución: a- Creo otra función checkLogin b- Agrego un if($api) que llame una vista? 
-            //c- Creo otra getPermission que retorne una rta, solo para usarla desde APICONTROLLERS
             return false;
         }else{
             return $_SESSION['USER_ROL'];

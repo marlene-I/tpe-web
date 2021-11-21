@@ -138,7 +138,7 @@ function showStatus(code, method = ""){ //Muestra un estado de la solicitud al u
             break;
     }
 
-    setTimeout(() => {
+    setTimeout(() => { //El mensaje se muestra por 2 segundos
         appComments.message = "";
         appComments.status = null;
     }, 2000);
