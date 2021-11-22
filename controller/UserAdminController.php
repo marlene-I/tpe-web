@@ -52,7 +52,8 @@ class UserAdminController
     
 
     function login(){
-        if (!empty($_POST['usuario']) && !empty($_POST['password'])) {
+        if (!empty($_POST['usuario']) && !empty($_POST['password']) 
+        && isset($_POST['usuario']) && isset($_POST['password'])) {
             $user = $_POST['usuario'];
             $password = $_POST['password'];
             $userData = $this->userModel->getUserData($user);
@@ -90,7 +91,9 @@ class UserAdminController
 
     function createUser(){
         if(!empty($_REQUEST['password-1']) && !empty($_REQUEST['password-2'])
-         && !empty($_REQUEST['usuario']) && !empty($_REQUEST['nombre']) ){
+         && !empty($_REQUEST['usuario']) && !empty($_REQUEST['nombre'])
+         && isset($_REQUEST['password-1']) && isset($_REQUEST['password-2'])
+         && isset($_REQUEST['usuario']) && isset($_REQUEST['nombre']) ){
 
             if ($_REQUEST['password-1'] != $_REQUEST['password-2']) { //Check que las contraseñas sean iguales
                 $this->renderRegister("Las contraseñas no coinciden");
@@ -138,7 +141,8 @@ class UserAdminController
         $access_level = "1";
         $this->authHelper->getPermission($access_level);
 
-        if(!empty($_REQUEST['user-id']) && !empty($_REQUEST['rol-id'])){
+        if(!empty($_REQUEST['user-id']) && !empty($_REQUEST['rol-id'])
+        && isset($_REQUEST['user-id']) && isset($_REQUEST['rol-id'])){
             $user_id = $_REQUEST['user-id'];
             $role_id = $_REQUEST['rol-id'];
 

@@ -22,13 +22,13 @@ class MenuController{
         $this->authHelper->checkActivity();
         $product = $this->productModel->getAll();
         $category = $this->categoryModel->getAll();
-        $this->view->Home($product, $category);
+        $this->view->renderHome($product, $category);
     }
 
     function filterByCat($category){
         $categories = $this->categoryModel->getAll();
         $products = $this->productModel->filterByCateg($category);
-        $this->view->Home($products, $categories);
+        $this->view->renderHome($products, $categories);
     }
 
     function renderDetail($id){
@@ -40,7 +40,7 @@ class MenuController{
         $category = $infoProducto[0]->nombre_categoria;
         $price = $infoProducto[0]->precio;
         $detail  = $infoProducto[0]->detalle;
-        $this->view->mostrarDetalle($name, $category, $price, $detail, $id, $categories);
+        $this->view->renderDetail($name, $category, $price, $detail, $id, $categories);
     }
     
    

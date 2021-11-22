@@ -7,13 +7,13 @@ class View{
         $this->smarty = new Smarty();
     }
 
-    function Home($producto, $categorias){ 
+    function renderHome($producto, $categorias){ 
         $this->smarty->assign('categorias', $categorias);
         $this->smarty->assign('productos', $producto);
         $this->smarty->display('templates/section/sectionHome.tpl');      
     }
     
-    function mostrarDetalle($nombre,$categoria,$precio,$detalle,$id_producto,$categorias){
+    function renderDetail($nombre,$categoria,$precio,$detalle,$id_producto,$categorias){
         $this->smarty->assign('categorias',$categorias);
         $this->smarty->assign('nombre', $nombre);
         $this->smarty->assign('categoria', $categoria);
@@ -36,7 +36,7 @@ class View{
         $this->smarty->display('templates/form/formModifyProd.tpl');
     }
 
-    function mostrarFormCategorias($id, $categorias){
+    function renderCategoriesForm($id, $categorias){
         $this->smarty->assign('categorias', $categorias);
         $this->smarty->assign('id',$id);
         $this->smarty->display('templates/form/formModifyCategory.tpl');

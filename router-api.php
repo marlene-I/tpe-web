@@ -10,7 +10,7 @@
     // Defino tabla de routeo
     $router->addRoute('comentarios/productos/:ID', 'GET', 'apiCommentController', 'getAll'); //
     $router->addRoute('comentarios/productos/:ID', 'POST', 'apiCommentController', 'insertComment');
-    $router->addRoute('comentarios/:ID_COMMENT', 'DELETE', 'apiCommentController', 'deleteComment');
+    $router->addRoute('comentarios/:ID_COMMENT', 'DELETE', 'apiCommentController', 'eraseComment');
 
     $resource = $_GET['resource'];
     $method = $_SERVER['REQUEST_METHOD'];

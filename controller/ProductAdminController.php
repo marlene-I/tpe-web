@@ -37,7 +37,9 @@
             $this->authHelper->getPermission($access_level);
             
             if(!empty($_REQUEST['producto']) && !empty($_REQUEST['detalle']) &&
-            !empty($_REQUEST['categoria']) && !empty($_REQUEST['precio'])  ){
+            !empty($_REQUEST['categoria']) && !empty($_REQUEST['precio']) &&
+             isset($_REQUEST['producto']) && isset($_REQUEST['detalle']) &&
+            isset($_REQUEST['categoria']) && isset($_REQUEST['precio'])){
                 
                 $product = $_REQUEST['producto'];
                 $price = $_REQUEST['precio'];
@@ -75,10 +77,12 @@
             $this->authHelper->getPermission($access_level);
 
             if(!empty($_REQUEST['producto']) && !empty($_REQUEST['detalle']) &&
-            !empty($_REQUEST['categoria']) && !empty($_REQUEST['precio']) && !empty($_REQUEST['id'])){
+            !empty($_REQUEST['categoria']) && !empty($_REQUEST['precio']) && !empty($_REQUEST['id'])
+            && isset($_REQUEST['producto']) && isset($_REQUEST['detalle']) &&
+            isset($_REQUEST['categoria']) && isset($_REQUEST['precio']) && isset($_REQUEST['id'])){
 
                 $product = $_REQUEST['producto'];
-                $price = $_REQUEST['price'];
+                $price = $_REQUEST['precio'];
                 $detail = $_REQUEST['detalle'];
                 $category = $_REQUEST['categoria'];
                 $id = $_REQUEST['id'];
@@ -109,7 +113,7 @@
             $access_level = "1";
             $this->authHelper->getPermission($access_level);
 
-            if (!empty($_GET['nombre_categoria'])) {
+            if (!empty($_GET['nombre_categoria']) && isset($_GET['nombre_categoria'])) {
                 
                 $category = $_GET['nombre_categoria'];
                 $this->categoryModel->insert($category);
@@ -140,7 +144,8 @@
         function modifyCateg(){
            $access_level = "1";
             $this->authHelper->getPermission($access_level);
-            if(!empty($_REQUEST['categoria']) && !empty($_REQUEST['id'])){ 
+            if(!empty($_REQUEST['categoria']) && !empty($_REQUEST['id'])
+            && isset($_REQUEST['categoria']) && isset($_REQUEST['id'])){ 
 
                 $newCat = $_REQUEST['categoria'];
                 $id = $_REQUEST['id'];
@@ -158,7 +163,7 @@
 
             $categories = $this->categoryModel->getAll();
 
-            $this->view->mostrarFormCategorias($id, $categories);
+            $this->view->renderCategoriesForm($id, $categories);
         }
         
     }

@@ -22,8 +22,13 @@ class ProductModel{
     }
 
     function modify($product,$price, $detail, $id, $category) {
-        $query =  $this->db->prepare('UPDATE `producto` SET `nombre_producto` = ?, `detalle` = ?, `precio_producto` = ?, `id_categorias_fk` = ? WHERE `producto`.`id_productos` = ?;'); 
-        return $query->execute([$product,$price, $detail, $category, $id]);
+        $query =  $this->db->prepare('UPDATE `producto` 
+        SET `nombre_producto` = ?, 
+        `detalle` = ?,
+        `precio_producto` = ?,
+        `id_categorias_fk` = ? 
+        WHERE `producto`.`id_productos` = ?;'); 
+        return $query->execute([$product,$detail, $price, $category, $id]);
     }
 
     function getProduct($id){

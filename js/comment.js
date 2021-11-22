@@ -7,6 +7,10 @@ let appComments = new Vue ({
         empty: null,
         status: null,
         message: "",
+        order: "no",
+        scoreFilter: "no",
+        sortBy: "puntuacion",
+        notFound:"",
     },
     methods: {
         delComment(id_comment){
@@ -14,12 +18,24 @@ let appComments = new Vue ({
              //Se agrega metodo de Vue que llame a la funcion delComment desde el html (pasando por param el ID de coment)
             deleteComment(id_comment);
         },
-    }
+        sortComments(order){
+            getCommentSorted(order);
+        },
+        getComments(){
+            getComments();
+        },
+        getCommentsLength(){
+            return this.comments.length;
+        },
+        filterComments(){
+            getCommentsFiltered();
+        }
+    },
 })
 
-let div_data = document.querySelector("#data-div"); //**CHA** 
-let id_producto = div_data.getAttribute('id-producto'); //Captura el id de producto del que se quieren mostrar los comentarios
-let id_usuario = div_data.getAttribute('id-usuario');
+let userInfo_div = document.querySelector("#user-info-div"); //**CHA** 
+let id_producto = userInfo_div.getAttribute('id-producto'); //Captura el id de producto del que se quieren mostrar los comentarios
+let id_usuario = userInfo_div.getAttribute('id-usuario');
 const API_URL = "api/comentarios/productos/" +id_producto;
 const API_URL_2 = "api/comentarios/" ;
 
@@ -30,7 +46,7 @@ commentForm.addEventListener('submit', insertComment);
 
 async function getComments(){ //Fetchea comentarios para un producto dado e imprime con Vue
     appComments.empty = null;
-
+    
     try {
         let response = await fetch(API_URL);
         let resComments = await response.json();
@@ -65,9 +81,10 @@ async function insertComment(e){ //Agrega un comentario nuevo a través de la AP
         })
 
         if(response.ok){
-
+            appComments.empty = null;
             let comment = await response.json();
             appComments.comments.push(comment);
+
 
         }else{
             console.log(response.status)
@@ -81,6 +98,7 @@ async function insertComment(e){ //Agrega un comentario nuevo a través de la AP
     }
 
 }
+
 async function deleteComment(comment_id){ //Elimina un comentario dado por ID
     try {
         let response = await fetch(API_URL_2+comment_id, {
@@ -91,22 +109,28 @@ async function deleteComment(comment_id){ //Elimina un comentario dado por ID
         });
 
         if(response.ok){
-            appComments.comments.forEach(comment => { //loop en el arreglo Vue para borrar el comentario que matchee ID
+            for (const [index, comment] of appComments.comments.entries()) {
                 if (comment.id == comment_id) {
-                    appComments.comments.pop(comment.id);
+                    appComments.comments.splice(index,1);
                 }
-                             
-            });
+            }
         }else{
             console.log(response.status);
         }
         showStatus(response.status, "del");
-
-
+        renderEmpty()
+        
     } catch (error) {
         console.log(error);
     }
 
+}
+
+function renderEmpty(){//Renderiza lista de comentarios vacia
+    let number = appComments.getCommentsLength();
+    if(number == 0){
+        appComments.empty = "No hay comentarios aun. Comenta!   "
+    }
 }
 
 function showStatus(code, method = ""){ //Muestra un estado de la solicitud al usuario
@@ -114,7 +138,7 @@ function showStatus(code, method = ""){ //Muestra un estado de la solicitud al u
     appComments.status = false;
     switch (method) {
         case "del":
-            verb = "borrado";
+            verb = "eliminado";
             break;
         case "ins":
             verb = "agregado";
@@ -144,4 +168,51 @@ function showStatus(code, method = ""){ //Muestra un estado de la solicitud al u
     }, 2000);
 }
 
+async function getCommentSorted(order){ //Fetchea comentarios y retorna ordenados por Punt. o Antiguedad
+    appComments.notFound = "";
+    let sortBy = document.querySelector("#sortBy-select").value;
+    let URL_sorted = API_URL + '?sort='+sortBy+'&order='+order;
+    if(appComments.scoreFilter == 'yes'){ //Si el filtro por puntaje está activado, la url pasa otro query param de filtro
+        let filterBy = document.querySelector("#filterBy-select").value;
+
+        URL_sorted = URL_sorted+ '?sort='+sortBy+'&order='+order+'&score='+filterBy;
+        console.log(URL_sorted+"\n"+filterBy+"\n"+appComments.scoreFilter)
+    }
+    try {
+        let response = await fetch(URL_sorted);
+        let resComments = await response.json();
+
+        if (response.status == 200) {
+            appComments.comments = resComments; //Renderiza los comentarios desde Vue
+        } else if(response.status == 404){
+            appComments.notFound = "No hay comentarios que coincidan con la búsqueda"
+        }else{
+            console.log(response.status)
+        }
+    }catch(e) {
+        console.log(e);
+    }
+}
+
+
+async function getCommentsFiltered(){// Fetchea y renderiza los comentarios por puntuación
+    appComments.notFound = "";
+    let filterBy = document.querySelector("#filterBy-select").value;
+    let URL_filtered = API_URL+'?score='+filterBy;
+    
+    try {
+        let response = await fetch(URL_filtered);
+        let resComments = await response.json();
+
+        if (response.status == 200) {
+            appComments.comments = resComments; //Renderiza los comentarios desde Vue
+        } else if(response.status == 404){
+            appComments.notFound = "No hay comentarios que coincidan con la búsqueda"
+        }else{
+            console.log(response.status)
+        }
+    }catch(e) {
+        console.log(e);
+    }
+}
 getComments();
