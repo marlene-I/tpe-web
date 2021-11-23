@@ -94,6 +94,9 @@ switch ($params[0]) {
     case 'acceso-denegado':
         $userAdminController->renderDeniedAccess();
     break;
+    case 'searchProducts':
+        $menuController->searchProduct();
+        break;
     default:
         echo "404 -Página no encontrada";
     break;

@@ -42,12 +42,12 @@
                     <button class="btn btn-secondary  m-2" v-on:click.prevent="sortComments('DESC')">
                         Descendente
                     </button>
-                    <button class="btn btn-secondary  m-2" v-on:click="getComments">
+                    <button class="btn btn-secondary  m-2" v-on:click="renderComments">
                         Quitar orden
                     </button>
                 </div>
                 <div v-if="order=='yes' && sortBy == 'puntuacion' && scoreFilter == 'yes'" class="alert alert-danger">
-                    Si se filtra por puntaje el ordenamiento por puntaje no se aplicará!
+                    Si se filtra por puntaje el ordenamiento por puntaje no tendrá efecto!
                 </div>
 
 
@@ -81,20 +81,18 @@
 
         </div>
 
-
+        {literal}
+        <div v-show="status == true" class="alert alert-success m-1">
+            {{message}}
+        </div>
+        <div v-show="status == false" class="alert alert-danger m-1">
+            {{message}}
+        </div>
+        {/literal}
 
 
     </div>
-    {literal}
-    <div v-show="status == true" class="alert alert-success m-1">
-        {{message}}
-    </div>
-    <div v-show="status == false" class="alert alert-danger m-1">
-        {{message}}
-    </div>
 
-
-    {/literal}
 
     {include file = "form/formInsertComment.tpl"}
 

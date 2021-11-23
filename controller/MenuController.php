@@ -42,6 +42,37 @@ class MenuController{
         $detail  = $infoProducto[0]->detalle;
         $this->view->renderDetail($name, $category, $price, $detail, $id, $categories);
     }
+
+    function searchProduct(){
+        if(isset($_REQUEST['prod-name']) && !empty($_REQUEST['prod-name'])){
+            $prodName ='%'.$_REQUEST['prod-name'].'%';
+        } else{
+            $prodName ='%';
+        }
+        if(isset($_REQUEST['lowerLim-price']) && !empty($_REQUEST['lowerLim-price']) ){
+            $lowerLim = $_REQUEST['lowerLim-price'];
+
+
+        }else{
+            $lowerLim = null;
+        }
+        if(isset($_REQUEST['upperLim-price']) && !empty($_REQUEST['upperLim-price']) ){
+            $upperLim = $_REQUEST['upperLim-price'];
+
+        }else{
+            $upperLim = null;
+        }
+        if(isset($_REQUEST['categ-name']) && !empty($_REQUEST['categ-name'])){
+            $categName ='%'.$_REQUEST['categ-name'].'%';
+        } else{
+            $categName ='%';
+        } 
+        
+        $products = $this->productModel->advancedSearch($lowerLim,$upperLim,$prodName,$categName);
+        $category = $this->categoryModel->getAll();
+
+        $this->view->renderHome($products, $category);
+    }
     
    
     

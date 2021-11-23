@@ -6,7 +6,11 @@ class ProductModel{
     }
 
     public function getAll(){
-        $query = $this->db->prepare('SELECT a.nombre_producto, a.precio_producto, a.id_productos, a.id_categorias_fk, b.nombre_categoria, b.id_categoria FROM producto a INNER JOIN categoria b ON a.id_categorias_fk = b.id_categoria');
+        $query = $this->db->prepare('SELECT a.nombre_producto, a.precio_producto, a.id_productos,
+         a.id_categorias_fk, b.nombre_categoria, b.id_categoria 
+        FROM producto a 
+        INNER JOIN categoria b 
+        ON a.id_categorias_fk = b.id_categoria');
         $query->execute(); 
         $productos = $query->fetchAll(PDO::FETCH_OBJ);
         return $productos;
@@ -46,13 +50,27 @@ class ProductModel{
         return $detalle;
     }
 
-    function filterByCateg($category){ //Esta funcion está mal definida en este modelo, debería ir en el
-        //Modelo de productos porque no filtra categorías filtra productos * categoria **
+    function filterByCateg($category){
         $query =  $this->db->prepare(
         'SELECT `producto`.*,`categoria`.* FROM `producto` 
         INNER JOIN `categoria` ON `categoria`.`id_categoria`= `producto`.`id_categorias_fk`
         WHERE nombre_categoria = ?');
         $query->execute([$category]);
+        $products = $query->fetchAll(PDO::FETCH_OBJ);
+        return $products;
+    }
+
+    function advancedSearch($lowLim=NULL, $uppLim=null, $prodName='%',$categName='%'){
+        $query = $this->db->prepare('SELECT p.nombre_producto, p.precio_producto, p.id_productos,
+        p.id_categorias_fk, c.nombre_categoria, c.id_categoria 
+       FROM producto AS p 
+       INNER JOIN categoria AS c 
+       ON p.id_categorias_fk = c.id_categoria
+       WHERE p.precio_producto BETWEEN IFNULL(? ,0) AND IFNULL(?,99999) AND
+       p.nombre_producto LIKE ? AND
+       c.nombre_categoria LIKE ?');
+
+       $query->execute([$lowLim, $uppLim, $prodName, $categName]);
         $products = $query->fetchAll(PDO::FETCH_OBJ);
         return $products;
     }

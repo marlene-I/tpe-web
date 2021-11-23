@@ -13,25 +13,13 @@ let appComments = new Vue ({
         notFound:"",
     },
     methods: {
-        delComment(id_comment){
-
-             //Se agrega metodo de Vue que llame a la funcion delComment desde el html (pasando por param el ID de coment)
-            deleteComment(id_comment);
+        delComment: deleteComment,
+        sortComments: getCommentSorted,
+        renderComments: getComments,
+        filterComments: getCommentsFiltered,
         },
-        sortComments(order){
-            getCommentSorted(order);
-        },
-        getComments(){
-            getComments();
-        },
-        getCommentsLength(){
-            return this.comments.length;
-        },
-        filterComments(){
-            getCommentsFiltered();
-        }
     },
-})
+)
 
 let userInfo_div = document.querySelector("#user-info-div"); //**CHA** 
 let id_producto = userInfo_div.getAttribute('id-producto'); //Captura el id de producto del que se quieren mostrar los comentarios
@@ -88,7 +76,6 @@ async function insertComment(e){ //Agrega un comentario nuevo a través de la AP
 
         }else{
             console.log(response.status)
-        showStatus(response.status, "ins");
 
         }
         showStatus(response.status, "ins");
@@ -118,7 +105,7 @@ async function deleteComment(comment_id){ //Elimina un comentario dado por ID
             console.log(response.status);
         }
         showStatus(response.status, "del");
-        renderEmpty()
+        checkEmptyComments()
         
     } catch (error) {
         console.log(error);
@@ -126,8 +113,8 @@ async function deleteComment(comment_id){ //Elimina un comentario dado por ID
 
 }
 
-function renderEmpty(){//Renderiza lista de comentarios vacia
-    let number = appComments.getCommentsLength();
+function checkEmptyComments(){//Renderiza lista de comentarios vacia
+    let number = appComments.comments.length;
     if(number == 0){
         appComments.empty = "No hay comentarios aun. Comenta!   "
     }
