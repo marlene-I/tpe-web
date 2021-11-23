@@ -3,14 +3,14 @@
 let appComments = new Vue ({
     el:'#comments',
     data: {
-        comments: [],
-        empty: null,
-        status: null,
-        message: "",
-        order: "no",
-        scoreFilter: "no",
-        sortBy: "puntuacion",
-        notFound:"",
+        comments: [], //Arreglo para renderizar comentarios
+        empty: null, //Validación y renderizado de lista de comentarios vacía
+        status: null, //Validación del estado de la solicitud del usuario 
+        message: "",//A partir de la validación de status se renderiza este mensaje según la respuesta obtenida
+        order: "no", //Validación para ordenar los comentarios
+        scoreFilter: "no", // Validación para filtrar los comentarios por puntaje
+        sortBy: "puntuacion", //Obtiene campo según el que (el usuario desea) ordenar los comentarios
+        notFound:"", //Renderiza si el filtrado de comentarios no obtuvo ningun resultado
     },
     methods: {
         delComment: deleteComment,
@@ -104,8 +104,8 @@ async function deleteComment(comment_id){ //Elimina un comentario dado por ID
         }else{
             console.log(response.status);
         }
-        showStatus(response.status, "del");
-        checkEmptyComments()
+        showStatus(response.status, "del"); //Renderiza si el comentario fue eliminado con éxito (o no)
+        checkEmptyComments() //Chequea si hay mas comentarios caso contrario renderiza
         
     } catch (error) {
         console.log(error);
@@ -114,8 +114,8 @@ async function deleteComment(comment_id){ //Elimina un comentario dado por ID
 }
 
 function checkEmptyComments(){//Renderiza lista de comentarios vacia
-    let number = appComments.comments.length;
-    if(number == 0){
+    let commentNum = appComments.comments.length;
+    if(commentNum == 0){
         appComments.empty = "No hay comentarios aun. Comenta!   "
     }
 }
@@ -123,6 +123,7 @@ function checkEmptyComments(){//Renderiza lista de comentarios vacia
 function showStatus(code, method = ""){ //Muestra un estado de la solicitud al usuario
     let verb = "";
     appComments.status = false;
+    //Los switch concatenan el mensaje que se mostrará al usuario dependiendo de la situación
     switch (method) {
         case "del":
             verb = "eliminado";

@@ -1,5 +1,5 @@
-<div class="container">
-    <table class="table table-hover">
+<div class="container col-sm-8 m-4">
+    <table class="table table-hover table-responsive">
         <thead>
             <tr>
                 <th>Producto</th>

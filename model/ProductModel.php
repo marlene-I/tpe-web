@@ -6,11 +6,11 @@ class ProductModel{
     }
 
     public function getAll(){
-        $query = $this->db->prepare('SELECT a.nombre_producto, a.precio_producto, a.id_productos,
-         a.id_categorias_fk, b.nombre_categoria, b.id_categoria 
-        FROM producto a 
-        INNER JOIN categoria b 
-        ON a.id_categorias_fk = b.id_categoria');
+        $query = $this->db->prepare('SELECT p.nombre_producto, p.precio_producto, p.id_productos,
+         p.id_categorias_fk, c.nombre_categoria, c.id_categoria 
+        FROM producto p 
+        INNER JOIN categoria c 
+        ON p.id_categorias_fk = c.id_categoria');
         $query->execute(); 
         $productos = $query->fetchAll(PDO::FETCH_OBJ);
         return $productos;
@@ -50,6 +50,7 @@ class ProductModel{
         return $detalle;
     }
 
+//Filtra productos por categoría. Recibe por parámetro el nombre de categoria 
     function filterByCateg($category){
         $query =  $this->db->prepare(
         'SELECT `producto`.*,`categoria`.* FROM `producto` 
@@ -60,6 +61,7 @@ class ProductModel{
         return $products;
     }
 
+    //Realiza búsqueda de productos en base a nombre,categoria, o precios (max o min)
     function advancedSearch($lowLim=NULL, $uppLim=null, $prodName='%',$categName='%'){
         $query = $this->db->prepare('SELECT p.nombre_producto, p.precio_producto, p.id_productos,
         p.id_categorias_fk, c.nombre_categoria, c.id_categoria 
@@ -74,4 +76,17 @@ class ProductModel{
         $products = $query->fetchAll(PDO::FETCH_OBJ);
         return $products;
     }
+
+    function getProdPages($numInPage, $offset){
+        $query = $this->db->prepare('SELECT p.nombre_producto, p.precio_producto, p.id_productos,
+        p.id_categorias_fk, c.nombre_categoria, c.id_categoria 
+        FROM producto p 
+        INNER JOIN categoria c 
+        ON p.id_categorias_fk = c.id_categoria
+        LIMIT ? OFFSET ?');
+        $query->execute([$numInPage, $offset]);
+        $products = $query->fetchAll(PDO::FETCH_OBJ);
+        return $products;
+    }
+
 }

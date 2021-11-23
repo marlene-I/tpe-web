@@ -148,11 +148,11 @@ class UserAdminController
 
             
             if($user_id != $_SESSION['USER_ID'] ){ //Chequea que no se auto-modifique
-                $user_id = $this->checkUserID($user_id);
+                $user_id = $this->checkUserID($user_id); //Chequeo que el usuario esté en la db
 
                 if ($user_id) {
                     $this->userModel->setRole($user_id, $role_id);
-                    $this->renderUsersAdmin(); //**CHECK está OK pedir devuelta los usuarios a la DB ??? */
+                    $this->renderUsersAdmin();
                 } else {
                     $this->renderErrorHelper->renderError("Usuario no existe");
                 }

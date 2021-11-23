@@ -25,12 +25,7 @@ class MenuController{
         $this->view->renderHome($product, $category);
     }
 
-    function filterByCat($category){
-        $categories = $this->categoryModel->getAll();
-        $products = $this->productModel->filterByCateg($category);
-        $this->view->renderHome($products, $categories);
-    }
-
+   
     function renderDetail($id){
         $this->authHelper->checkActivity();
         $categories= $this->categoryModel->getAll();
@@ -43,26 +38,44 @@ class MenuController{
         $this->view->renderDetail($name, $category, $price, $detail, $id, $categories);
     }
 
-    function searchProduct(){
-        if(isset($_REQUEST['prod-name']) && !empty($_REQUEST['prod-name'])){
+    function renderMenu(){
+        $this->authHelper->checkActivity();
+        $product = $this->productModel->getAll();
+        $category = $this->categoryModel->getAll();
+        $this->view->renderMenu($product, $category);
+    }
+
+    function filterByCat($category){
+        $this->authHelper->checkActivity();
+        $categories = $this->categoryModel->getAll();
+        $products = $this->productModel->filterByCateg($category);
+        $this->view->renderHome($products, $categories);
+    }
+
+
+    function searchProduct(){ 
+        //Busqueda de productos: 
+        //Se admite ausencia o presencia de parámetros y se busca coincidencia
+        //del string recibido
+        $this->authHelper->checkActivity();
+        if(isset($_REQUEST['prod-name']) && !empty($_REQUEST['prod-name'])){ //Check producto
             $prodName ='%'.$_REQUEST['prod-name'].'%';
         } else{
             $prodName ='%';
         }
-        if(isset($_REQUEST['lowerLim-price']) && !empty($_REQUEST['lowerLim-price']) ){
+        if(isset($_REQUEST['lowerLim-price']) && !empty($_REQUEST['lowerLim-price']) ){ //Check limite inferior
             $lowerLim = $_REQUEST['lowerLim-price'];
-
 
         }else{
             $lowerLim = null;
         }
-        if(isset($_REQUEST['upperLim-price']) && !empty($_REQUEST['upperLim-price']) ){
+        if(isset($_REQUEST['upperLim-price']) && !empty($_REQUEST['upperLim-price']) ){ //Check limite superior
             $upperLim = $_REQUEST['upperLim-price'];
 
         }else{
             $upperLim = null;
         }
-        if(isset($_REQUEST['categ-name']) && !empty($_REQUEST['categ-name'])){
+        if(isset($_REQUEST['categ-name']) && !empty($_REQUEST['categ-name'])){ //Check categoria
             $categName ='%'.$_REQUEST['categ-name'].'%';
         } else{
             $categName ='%';

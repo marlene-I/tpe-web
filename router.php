@@ -29,6 +29,9 @@ switch ($params[0]) {
     case 'home':
         $menuController->renderHome();
     break;
+    case 'menu':
+        $menuController->renderMenu();
+    break;
     case 'nombre_categoria':
         $menuController->filterByCat($params[1]);
     break;

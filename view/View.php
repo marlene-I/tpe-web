@@ -41,4 +41,10 @@ class View{
         $this->smarty->assign('id',$id);
         $this->smarty->display('templates/form/formModifyCategory.tpl');
     }
+
+    function renderMenu($producto, $categorias){ 
+        $this->smarty->assign('categorias', $categorias);
+        $this->smarty->assign('productos', $producto);
+        $this->smarty->display('templates/section/sectionMenu.tpl');      
+    }
 }
