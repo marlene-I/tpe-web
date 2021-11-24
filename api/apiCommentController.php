@@ -57,8 +57,12 @@ class apiCommentController
     public function insertComment()
     { //Inserta un comentario, checkea el insert y lo devuelve como JSON
         $access_level = "2";
-        $this->authHelper->getPermission($access_level, true);
+        $permission = $this->authHelper->getPermission($access_level, true); // Por defecto retorna el control sin enviar nada
 
+        if($permission != null ){
+            $this->apiView->response("Acceso denegado", 403);
+            die;
+        }
         $input = $this->getBody();
 
         $id_producto = $input->id_producto;
@@ -76,10 +80,16 @@ class apiCommentController
             $this->apiView->response("Comentario no encontrado", 500);
     }
 
+
     public function eraseComment($params = null)
     { //Elimina el comentario y devuelve el id del comentario eliminado 
         $access_level = "1";
-        $this->authHelper->getPermission($access_level, true);
+        $permission = $this->authHelper->getPermission($access_level, true);
+        if($permission != null){
+            $this->apiView->response("Acceso denegado", 403);
+            die;
+        }
+        
         if(isset($params[':ID_COMMENT']) && !empty($params[':ID_COMMENT'])){
 
             $id_comment = $params[":ID_COMMENT"];

@@ -35,7 +35,7 @@ class AuthHelper {
     }
     
     //Combina el chequeo de actividad con el login y el nivel de acceso
-    //Recibe por parámetro el nivel de permiso solicitado
+    //Recibe por parámetro el nivel de permiso solicitado (ROL)
     //Compara con los datos almacenados en la sesion (comprueba que haya datos)
     function getPermission($permission_required, $api=null){ 
         $this->checkActivity();
@@ -43,12 +43,12 @@ class AuthHelper {
 
         switch ($session_role) {
             case $permission_required:
+
                 return;
                 break;
             default:
-                if($api){
-                    $this->apiView->response("Acceso denegado", 403);
-                    die;
+                if($api){ //En caso de la API debe chequear que el valor no sea nulo
+                   return false;
                 }else{
                     header("Location: ". DENIED_ACCESS);
                 }

@@ -23,7 +23,7 @@ class AccessView{
         $this->smarty->display('templates/renderError.tpl');
     }
 
-    function showUserAdmin($users, $categorias=null){
+    function renderUserAdmin($users, $categorias=null){
         $this->smarty->assign('categorias', $categorias);
         $this->smarty->assign('users',$users);
         $this->smarty->display('templates/section/sectionUsersAdmin.tpl');

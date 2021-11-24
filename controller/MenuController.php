@@ -1,6 +1,6 @@
 <?php
 require_once('model/ProductModel.php');
-require_once('view/View.php');
+require_once('view/ProductView.php');
 require_once('model/CategoryModel.php');
 include_once('helpers/auth.helper.php');
 class MenuController{
@@ -8,12 +8,12 @@ class MenuController{
      //Gestiona renderización y navegación por el menu de productos.
      
     private $productModel;
-    private $view;
+    private $productView;
     private $categoryModel;
     public function __construct(){
         $this->authHelper = new AuthHelper();
         $this->productModel = new ProductModel();
-        $this->view = new View();
+        $this->productView = new ProductView();
         $this->categoryModel = new CategoryModel();
   
     }
@@ -22,7 +22,7 @@ class MenuController{
         $this->authHelper->checkActivity();
         $product = $this->productModel->getAll();
         $category = $this->categoryModel->getAll();
-        $this->view->renderHome($product, $category);
+        $this->productView->renderHome($product, $category);
     }
 
    
@@ -31,25 +31,27 @@ class MenuController{
         $categories= $this->categoryModel->getAll();
 
         $infoProducto = $this->productModel->getProduct($id);
-        $name = $infoProducto[0]->nombre;
-        $category = $infoProducto[0]->nombre_categoria;
-        $price = $infoProducto[0]->precio;
-        $detail  = $infoProducto[0]->detalle;
-        $this->view->renderDetail($name, $category, $price, $detail, $id, $categories);
+
+        $name = $infoProducto->nombre;
+        $category = $infoProducto->nombre_categoria;
+        $price = $infoProducto->precio;
+        $detail  = $infoProducto->detalle;
+        $img  = $infoProducto->imagen;
+        $this->productView->renderDetail($name, $category, $price, $detail, $id,$img, $categories);
     }
 
     function renderMenu(){
         $this->authHelper->checkActivity();
         $product = $this->productModel->getAll();
         $category = $this->categoryModel->getAll();
-        $this->view->renderMenu($product, $category);
+        $this->productView->renderMenu($product, $category);
     }
 
     function filterByCat($category){
         $this->authHelper->checkActivity();
         $categories = $this->categoryModel->getAll();
         $products = $this->productModel->filterByCateg($category);
-        $this->view->renderHome($products, $categories);
+        $this->productView->renderHome($products, $categories);
     }
 
 
@@ -84,7 +86,7 @@ class MenuController{
         $products = $this->productModel->advancedSearch($lowerLim,$upperLim,$prodName,$categName);
         $category = $this->categoryModel->getAll();
 
-        $this->view->renderHome($products, $category);
+        $this->productView->renderHome($products, $category);
     }
     
    

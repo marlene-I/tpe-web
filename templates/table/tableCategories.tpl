@@ -24,8 +24,8 @@
                     <tr>
                         
                          <td>{$categoria->nombre}</td>
+                         <td><a href="borrarCategoria/{$categoria->id}" class = "btn btn-outline-danger">Eliminar</a></td>
                          <td><a href="modificarCategorias/{$categoria->id}" class = "btn btn-outline-danger">Modificar</a></td>
-                         <td><a href="borrarCategoria/{$categoria->id}" class = "btn btn-outline-danger">Borrar</a></td>
                     </tr>
             {/foreach}
         </tbody>    

@@ -1,7 +1,6 @@
 <?php
  require_once('libs/Smarty.class.php');
- require_once('helpers/auth.helper.php');
-class View{
+class ProductView{
     private $smarty;
     function __construct(){
         $this->smarty = new Smarty();
@@ -13,17 +12,23 @@ class View{
         $this->smarty->display('templates/section/sectionHome.tpl');      
     }
     
-    function renderDetail($nombre,$categoria,$precio,$detalle,$id_producto,$categorias){
+    function renderDetail($nombre,$categoria,$precio,$detalle,$id_producto,$img,$categorias){
         $this->smarty->assign('categorias',$categorias);
         $this->smarty->assign('nombre', $nombre);
         $this->smarty->assign('categoria', $categoria);
         $this->smarty->assign('precio', $precio);
         $this->smarty->assign('detalle', $detalle);
         $this->smarty->assign('id_producto', $id_producto);
+        $this->smarty->assign('imagen', $img);
         $this->smarty->display('templates/section/sectionDetail.tpl');
     }
+    function renderMenu($producto, $categorias){ 
+        $this->smarty->assign('categorias', $categorias);
+        $this->smarty->assign('productos', $producto);
+        $this->smarty->display('templates/section/sectionMenu.tpl');      
+    }
 
-    function sectionAdmin($categorias, $producto){
+    function renderProdAdmin($categorias, $producto){
         $this->smarty->assign('categorias', $categorias);
         $this->smarty->assign('productos', $producto);
         $this->smarty->display('templates/section/sectionProductsAdmin.tpl');
@@ -42,9 +47,5 @@ class View{
         $this->smarty->display('templates/form/formModifyCategory.tpl');
     }
 
-    function renderMenu($producto, $categorias){ 
-        $this->smarty->assign('categorias', $categorias);
-        $this->smarty->assign('productos', $producto);
-        $this->smarty->display('templates/section/sectionMenu.tpl');      
-    }
+    
 }

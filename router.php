@@ -100,6 +100,9 @@ switch ($params[0]) {
     case 'searchProducts':
         $menuController->searchProduct();
         break;
+    case 'borrarImagen':
+        $productAdminController->deleteImage($params[1]);
+        break;
 
     default:
         echo "404 -Página no encontrada";

@@ -7,7 +7,7 @@ class ProductModel{
 
     public function getAll(){
         $query = $this->db->prepare('SELECT p.nombre_producto, p.precio_producto, p.id_productos,
-         p.id_categorias_fk, c.nombre_categoria, c.id_categoria 
+         p.id_categorias_fk, p.imagen,c.nombre_categoria, c.id_categoria 
         FROM producto p 
         INNER JOIN categoria c 
         ON p.id_categorias_fk = c.id_categoria');
@@ -15,34 +15,47 @@ class ProductModel{
         $productos = $query->fetchAll(PDO::FETCH_OBJ);
         return $productos;
     }
-    function insert($product,$price, $detail, $category,$imagen = null){
-        $pathImg = null;
-        if ($imagen){
-            $pathImg = $this->uploadImage($imagen);
+    function insert($product,$price, $detail, $category,$pathImg = null){
         
-        $query = $this->db->prepare('INSERT INTO producto(nombre_producto,precio_producto, detalle, id_categorias_fk,imagen) VALUES (?,?,?,?,?)');
+        $query = $this->db->prepare('INSERT INTO producto(nombre_producto,precio_producto, detalle, id_categorias_fk,imagen) 
+        VALUES (?,?,?,?,?)');
         $query->execute([$product,$price, $detail, $category,$pathImg]);
-        }
+        
     }
-    private function uploadImage($image){
-        $target = 'img/task/' . uniqid() . '.jpg';
-        move_uploaded_file($image, $target);
-        return $target;
-    }
+    
 
     function delete($id) {
         $query = $this->db->prepare('DELETE FROM producto WHERE id_productos=?');
         return $query->execute([$id]);
     }
 
-    function modify($product,$price, $detail, $id, $category) {
+    function modify($product,$price, $detail, $id, $category, $pathImg=null) {
         $query =  $this->db->prepare('UPDATE `producto` 
         SET `nombre_producto` = ?, 
         `detalle` = ?,
         `precio_producto` = ?,
-        `id_categorias_fk` = ? 
+        `id_categorias_fk` = ?,
+        `imagen` = ?
         WHERE `producto`.`id_productos` = ?;'); 
-        return $query->execute([$product,$detail, $price, $category, $id]);
+        return $query->execute([$product,$detail, $price, $category, $pathImg,$id]);
+    }
+
+    function uploadImage($image){
+        $target = 'img/' . uniqid() . '.jpg';
+        move_uploaded_file($image, $target);
+        return $target;
+    }
+
+    function deleteImage($pathImg){ //Elimina la imagen del servidor (../img/..) retorna el resultado (T/F)
+        $unlinked = unlink($pathImg);
+        return $unlinked;
+    }
+
+    function unbindImage($id_product){ //Elimina el path de la imagen asociada al producto en la DB
+        $query = $this->db->prepare('UPDATE producto 
+            SET imagen = NULL
+            WHERE producto.id_productos = ?');
+        return $query ->execute([$id_product]);
     }
 
     function getProduct($id){
@@ -50,13 +63,14 @@ class ProductModel{
             'SELECT p.nombre_producto AS nombre,
             p.precio_producto AS precio,
             p.detalle AS detalle, 
+            p.imagen AS imagen,
             categoria.nombre_categoria
             FROM producto p 
             INNER JOIN categoria 
             ON categoria.id_categoria = p.id_categorias_fk 
             WHERE id_productos= ?');
         $query->execute([$id]);
-        $detalle = $query ->fetchAll(PDO::FETCH_OBJ);
+        $detalle = $query ->fetch(PDO::FETCH_OBJ);
         return $detalle;
     }
 

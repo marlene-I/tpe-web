@@ -1,21 +1,21 @@
 <?php
 require_once('model/UserModel.php');
-require_once('view/ViewIngreso.php');
+require_once('view/AccessView.php');
 include_once('helpers/auth.helper.php');
 require_once('model/CategoryModel.php');
-require_once('helpers/renderError.helper.php');
+require_once('view/ErrorView.php');
 
 
 class UserAdminController
 {
     private $userModel;
     private $accessView;
-    private $renderErrorHelper;
+    private $errorView;
     private $categoryModel;
     public function __construct()
     {
         $this->authHelper = new AuthHelper();
-        $this->renderErrorHelper = new RenderErrorHelper();
+        $this->errorView = new ErrorView();
         $this->userModel = new UserModel();
         $this->accessView = new AccessView();
         $this->categoryModel = new CategoryModel();
@@ -40,14 +40,14 @@ class UserAdminController
         $users = $this->userModel->getAll();
         $categories = $this->categoryModel->getAll();
         if ($users) {
-            $this->accessView->showUserAdmin($users, $categories);
+            $this->accessView->renderUserAdmin($users, $categories);
         } else {
-            $this->renderErrorHelper->renderError("Error 404");
+            $this->errorView->render("Error 404");
         }
     }
 
     function renderDeniedAccess(){
-        $this->accessView->renderError();
+        $this->errorView->render("Acceso denegado");
     }
     
 
@@ -130,10 +130,10 @@ class UserAdminController
                 $this->userModel->delete($user_id);
                 header("Location: " . USERS);
             }else{
-                $this->renderErrorHelper->renderError("Error usuario no encontrado");
+                $this->errorView->render("Error usuario no encontrado");
             }
         }else{
-                $this->renderErrorHelper->renderError("Error ingresos inválidos");
+                $this->errorView->render("Error ingresos inválidos");
         }
     }
     
@@ -154,13 +154,13 @@ class UserAdminController
                     $this->userModel->setRole($user_id, $role_id);
                     $this->renderUsersAdmin();
                 } else {
-                    $this->renderErrorHelper->renderError("Usuario no existe");
+                    $this->errorView->render("Usuario no existe");
                 }
             }else{
-                $this->renderErrorHelper->renderError("No es posible realizar la modificación");
+                $this->errorView->render("No es posible realizar la modificación");
             }
         }else{
-                $this->renderErrorHelper->renderError("Error ingresos inválidos");
+                $this->errorView->render("Error ingresos inválidos");
         }
     }
 }
