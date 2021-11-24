@@ -103,7 +103,13 @@ switch ($params[0]) {
     case 'borrarImagen':
         $productAdminController->deleteImage($params[1]);
         break;
-
+    case 'paginar':
+        if(isset($params[2])){
+            $menuController->renderPaginated($params[1],$params[2]);
+        }else{
+            $menuController->renderPaginated($params[1]);
+        }
+    break;
     default:
         echo "404 -Página no encontrada";
     break;

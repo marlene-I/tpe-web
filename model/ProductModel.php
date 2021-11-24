@@ -100,15 +100,22 @@ class ProductModel{
         $products = $query->fetchAll(PDO::FETCH_OBJ);
         return $products;
     }
+    function countProducts(){
+        $query  = $this->db->prepare('SELECT COUNT(id_productos) AS prod_num
+        FROM producto');
+        $query->execute();
+        $count = $query->fetch(PDO::FETCH_OBJ);
+        return $count;
+    }
 
-    function getProdPages($numInPage, $offset){
+    function getPage($numInPage, $offset=0){
         $query = $this->db->prepare('SELECT p.nombre_producto, p.precio_producto, p.id_productos,
         p.id_categorias_fk, c.nombre_categoria, c.id_categoria 
         FROM producto p 
         INNER JOIN categoria c 
         ON p.id_categorias_fk = c.id_categoria
-        LIMIT ? OFFSET ?');
-        $query->execute([$numInPage, $offset]);
+        LIMIT '.$numInPage.' OFFSET ' .$offset); //Ambos valores son chequeados en el controller
+        $query->execute([]);
         $products = $query->fetchAll(PDO::FETCH_OBJ);
         return $products;
     }

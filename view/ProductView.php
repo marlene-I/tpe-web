@@ -22,9 +22,10 @@ class ProductView{
         $this->smarty->assign('imagen', $img);
         $this->smarty->display('templates/section/sectionDetail.tpl');
     }
-    function renderMenu($producto, $categorias){ 
+    function renderMenu($producto, $categorias, $totalPages=null){ 
         $this->smarty->assign('categorias', $categorias);
         $this->smarty->assign('productos', $producto);
+        $this->smarty->assign('totalPages', $totalPages);
         $this->smarty->display('templates/section/sectionMenu.tpl');      
     }
 

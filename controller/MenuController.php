@@ -88,6 +88,41 @@ class MenuController{
 
         $this->productView->renderHome($products, $category);
     }
+
+    function renderPaginated($itemsByPage, $pageNum=null){
+        if(isset($itemsByPage) && !empty($itemsByPage) && is_numeric($itemsByPage)){
+            $itemsByPage = intval($itemsByPage);
+            $totalPages = $this->getTotalPages($itemsByPage);
+
+            if(isset($pageNum) && !empty($pageNum) && is_numeric($pageNum)){
+                $products = $this->productModel->getPage($itemsByPage, $pageNum);
+
+            }else{
+
+                $products = $this->productModel->getPage($itemsByPage);
+            }
+
+           $category = $this->categoryModel->getAll();
+           $this->productView->renderMenu($products, $category, $totalPages);
+       }else{
+        //    $this->errorView->render("Se necesita numero de paginas");
+    }
+
+    }
+
+    function getTotalPages($itemsByPage){
+            $itemsByPage = intval($itemsByPage);
+            $count = $this->productModel->countProducts();
+            $totalItems = $count->prod_num;
+            $totalItems = intval($totalItems);
+
+            if($totalItems % $itemsByPage == 0){
+                $numPages = intdiv($totalItems,$itemsByPage); 
+            }else{
+                $numPages = intdiv($totalItems,$itemsByPage)+ 1 ; 
+            }
+            return $numPages;
+    }
     
    
     
