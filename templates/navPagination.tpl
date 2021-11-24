@@ -1,6 +1,6 @@
 {if $totalPages != null}
 
-<nav aria-label="Page navigation example">
+<nav class="d-flex justify-content-center" aria-label="Page navigation example">
     <ul class="pagination">
     {if $actualPage == 1}
         <li class="page-item disabled"><a class="page-link " href="paginar/5/{$previousPage}">Previous</a></li>
