@@ -100,6 +100,7 @@ switch ($params[0]) {
     case 'searchProducts':
         $menuController->searchProduct();
         break;
+
     default:
         echo "404 -Página no encontrada";
     break;

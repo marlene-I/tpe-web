@@ -8,6 +8,8 @@
             <h5>Detalle de producto</h5><h6>{$detalle}</h6>
 
         </div>
+        
+    
         <a href="home" type="button" class="btn btn-outline-success mt-2">HOME</a>
         {if isset($smarty.session.USER_ID)}
         <div class="list-group w-50 row" id="user-info-div" id-producto={$id_producto} id-usuario={$smarty.session.USER_ID}>

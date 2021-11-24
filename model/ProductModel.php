@@ -15,9 +15,19 @@ class ProductModel{
         $productos = $query->fetchAll(PDO::FETCH_OBJ);
         return $productos;
     }
-    function insert($product,$price, $detail, $category){ 
-        $query = $this->db->prepare('INSERT INTO producto(nombre_producto,precio_producto, detalle, id_categorias_fk) VALUES (?,?,?,?)');
-        $query->execute([$product,$price, $detail, $category]);
+    function insert($product,$price, $detail, $category,$imagen = null){
+        $pathImg = null;
+        if ($imagen){
+            $pathImg = $this->uploadImage($imagen);
+        
+        $query = $this->db->prepare('INSERT INTO producto(nombre_producto,precio_producto, detalle, id_categorias_fk,imagen) VALUES (?,?,?,?,?)');
+        $query->execute([$product,$price, $detail, $category,$pathImg]);
+        }
+    }
+    private function uploadImage($image){
+        $target = 'img/task/' . uniqid() . '.jpg';
+        move_uploaded_file($image, $target);
+        return $target;
     }
 
     function delete($id) {

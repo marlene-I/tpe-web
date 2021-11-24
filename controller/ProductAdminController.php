@@ -47,7 +47,14 @@
                 $category = $_REQUEST['categoria'];
                 
                 $this->productModel->insert($product, $price, $detail, $category);
-                
+                if($_FILES['img']['type'] == "image/jpg" || $_FILES['img']['type'] == "image/jpeg" 
+                    || $_FILES['img']['type'] == "image/png" ) {
+                    $this->productModel->insert($product, $price, $detail, $category, $_FILES['img']['tmp_name']);
+                }
+                else {
+                    $this->productModel->insert($product, $price, $detail, $category);
+                }
+
                 header("Location: " .ADMIN);
 
             }else {
@@ -55,7 +62,7 @@
                 $this->renderErrorHelper->renderError("Ingresos inválidos");
             }
         }
-
+        
         function deleteProd($id){
             $access_level = "1";
             $this->authHelper->getPermission($access_level);

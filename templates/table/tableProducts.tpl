@@ -20,7 +20,7 @@
         && isset($smarty.session.USER_ROL)       
         && $smarty.session.USER_ROL == "1")}
             <tr>
-                <form class="form-group" action="agregar-producto">
+                <form class="form-group" action="agregar-producto" enctype="multipart/form-data">
                     <td>           
                         <input type="text"  class="form-control"  required="required"   placeholder="Nombre de producto" name="producto">
                     </td>
@@ -34,8 +34,13 @@
                         <input type="text"  class="form-control" required="required"  placeholder="Detalle" name="detalle">
                     </td>
                     <td>
+                      <input type="file" name="img" id="imageToUpload" class="form-control">
+                    </td>
+                    <td>
                         <button type="submit" class="btn btn-success">Agregar</button>
                     </td>
+                    
+
                 </form>
             </tr>
         {/if}
@@ -52,6 +57,7 @@
                         && $smarty.session.USER_ROL == "1")}
                             <td><a href="borrar/{$producto->id_productos}" class="btn btn-outline-danger">Eliminar</a></td>
                             <td><a href="modificar/{$producto->id_productos}" class="btn btn-outline-danger">Modificar</a></td>
+                            
                         {/if}
                     </tr>
             {/foreach}
