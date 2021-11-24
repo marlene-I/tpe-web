@@ -44,7 +44,7 @@ class MenuController{
         $this->authHelper->checkActivity();
         $product = $this->productModel->getAll();
         $category = $this->categoryModel->getAll();
-        $this->productView->renderMenu($product, $category);
+        $this->productView->renderMenu($product, $category );
     }
 
     function filterByCat($category){
@@ -89,22 +89,25 @@ class MenuController{
         $this->productView->renderHome($products, $category);
     }
 
-    function renderPaginated($itemsByPage, $pageNum=null){
+    function renderPaginated($itemsByPage, $actualPage=null){
         if(isset($itemsByPage) && !empty($itemsByPage) && is_numeric($itemsByPage)){
             $itemsByPage = intval($itemsByPage);
             $totalPages = $this->getTotalPages($itemsByPage);
 
-            if(isset($pageNum) && !empty($pageNum) && is_numeric($pageNum)){
-                $offset = $itemsByPage * ($pageNum-1);
+            if(isset($actualPage) && !empty($actualPage) && is_numeric($actualPage)){
+                $offset = $itemsByPage * ($actualPage-1);
                 $products = $this->productModel->getPage($itemsByPage, $offset);
-
+                $nextPage = $actualPage +1;
+                $previousPage = $actualPage -1;
             }else{
-
+                $actualPage =1;
                 $products = $this->productModel->getPage($itemsByPage);
+                $nextPage = $actualPage +1;
+                $previousPage = $actualPage -1;
             }
 
            $category = $this->categoryModel->getAll();
-           $this->productView->renderMenu($products, $category, $totalPages);
+           $this->productView->renderMenu($products, $category, $totalPages, $actualPage ,$nextPage,$previousPage);
        }else{
         //    $this->errorView->render("Se necesita numero de paginas");
     }

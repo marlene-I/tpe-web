@@ -22,10 +22,13 @@ class ProductView{
         $this->smarty->assign('imagen', $img);
         $this->smarty->display('templates/section/sectionDetail.tpl');
     }
-    function renderMenu($producto, $categorias, $totalPages=null){ 
+    function renderMenu($producto, $categorias, $totalPages=null,$actualPage=1, $nextPage =null,$previousPage=null){ 
         $this->smarty->assign('categorias', $categorias);
         $this->smarty->assign('productos', $producto);
         $this->smarty->assign('totalPages', $totalPages);
+        $this->smarty->assign('actualPage', $actualPage);
+        $this->smarty->assign('nextPage', $nextPage);
+        $this->smarty->assign('previousPage', $previousPage);
         $this->smarty->display('templates/section/sectionMenu.tpl');      
     }
 
