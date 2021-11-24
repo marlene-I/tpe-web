@@ -95,7 +95,8 @@ class MenuController{
             $totalPages = $this->getTotalPages($itemsByPage);
 
             if(isset($pageNum) && !empty($pageNum) && is_numeric($pageNum)){
-                $products = $this->productModel->getPage($itemsByPage, $pageNum);
+                $offset = $itemsByPage * ($pageNum-1);
+                $products = $this->productModel->getPage($itemsByPage, $offset);
 
             }else{
 

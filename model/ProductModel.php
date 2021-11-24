@@ -114,6 +114,7 @@ class ProductModel{
         FROM producto p 
         INNER JOIN categoria c 
         ON p.id_categorias_fk = c.id_categoria
+        ORDER BY p.nombre_producto
         LIMIT '.$numInPage.' OFFSET ' .$offset); //Ambos valores son chequeados en el controller
         $query->execute([]);
         $products = $query->fetchAll(PDO::FETCH_OBJ);
