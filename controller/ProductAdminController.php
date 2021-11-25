@@ -206,7 +206,7 @@ class ProductAdminController
             header("Location: " . ADMIN);
         } else {
 
-            $this->renderErrorHelper->render("La categoría no existe");
+            $this->errorView->render("La categoría no existe");
         }
     }
 
@@ -225,7 +225,7 @@ class ProductAdminController
             $this->categoryModel->modify($newCat, $id);
             header("Location: " . ADMIN);
         } else {
-            $this->renderErrorHelper->renderError("Ingreso inválido");
+            $this->errorView->render("Ingreso inválido");
         }
     }
 

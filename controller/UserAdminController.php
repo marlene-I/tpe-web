@@ -42,11 +42,11 @@ class UserAdminController
         if ($users) {
             $this->accessView->renderUserAdmin($users, $categories);
         } else {
-            $this->errorView->render("Error 404");
+            $this->errorView->render("Error 404", $categories);
         }
     }
 
-    function renderDeniedAccess(){
+    function renderDeniedAccess(){ //Función específica para redireccionar desde el helper
         $this->errorView->render("Acceso denegado");
     }
     
@@ -79,7 +79,7 @@ class UserAdminController
         if (!$users) {
             $users = $this->userModel->getAll();
         }
-            foreach ($users as $i => $user) {
+            foreach ($users as $user) {
                 if ($user->id == $user_id) {
                     return $user_id;
                 }

@@ -8,4 +8,4 @@ function goBack() {  //Da funcionalidad al botón de volver atrás
 }
 setInterval(() => {
     goBack();
-}, 2000);
+}, 3000);

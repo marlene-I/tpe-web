@@ -10,19 +10,27 @@ class MenuController{
     private $productModel;
     private $productView;
     private $categoryModel;
+    private $errorView;
+
     public function __construct(){
         $this->authHelper = new AuthHelper();
         $this->productModel = new ProductModel();
         $this->productView = new ProductView();
+        $this->errorView = new ErrorView();
         $this->categoryModel = new CategoryModel();
   
     }
 
     function renderHome(){
         $this->authHelper->checkActivity();
+        $categories = $this->categoryModel->getAll();
         $product = $this->productModel->getAll();
-        $category = $this->categoryModel->getAll();
-        $this->productView->renderHome($product, $category);
+        if($product){
+            $this->productView->renderHome($product, $categories);
+
+        }else{
+            $this->errorView->render("Ups, no se encontraron productos", $categories);
+        }
     }
 
    
@@ -31,27 +39,37 @@ class MenuController{
         $categories= $this->categoryModel->getAll();
 
         $infoProducto = $this->productModel->getProduct($id);
-
-        $name = $infoProducto->nombre;
-        $category = $infoProducto->nombre_categoria;
-        $price = $infoProducto->precio;
-        $detail  = $infoProducto->detalle;
-        $img  = $infoProducto->imagen;
-        $this->productView->renderDetail($name, $category, $price, $detail, $id,$img, $categories);
+        if($infoProducto){
+            
+            $this->productView->renderDetail($infoProducto, $id, $categories );
+ 
+        }else{
+            $empty = true;
+            $this->errorView->render("Ups, no se encontró el producto que buscabas", $categories,$empty);
+        }
     }
 
     function renderMenu(){
         $this->authHelper->checkActivity();
-        $product = $this->productModel->getAll();
+        $products = $this->productModel->getAll();
         $category = $this->categoryModel->getAll();
-        $this->productView->renderMenu($product, $category );
+
+        if($products){
+            $this->productView->renderMenu($products, $category );
+        }else{
+            $this->errorView->render("Ups, no hay productos que mostrar", $category);
+        }
     }
 
     function filterByCat($category){
         $this->authHelper->checkActivity();
         $categories = $this->categoryModel->getAll();
         $products = $this->productModel->filterByCateg($category);
-        $this->productView->renderHome($products, $categories);
+        if($products){
+            $this->productView->renderHome($products, $categories);
+        }else{
+            $this->errorView->render("Ups, no hay productos que mostrar", $category);
+        }
     }
 
 
@@ -83,13 +101,22 @@ class MenuController{
             $categName ='%';
         } 
         
+        
         $products = $this->productModel->advancedSearch($lowerLim,$upperLim,$prodName,$categName);
         $category = $this->categoryModel->getAll();
 
-        $this->productView->renderHome($products, $category);
+        if($products){
+            $this->productView->renderHome($products, $category);
+
+        }else{
+            $this->errorView->render("Ups, no hay productos que mostrar", $category);
+
+        }
     }
 
     function renderPaginated($itemsByPage, $actualPage=null){
+        $category = $this->categoryModel->getAll();
+
         if(isset($itemsByPage) && !empty($itemsByPage) && is_numeric($itemsByPage)){
             $itemsByPage = intval($itemsByPage);
             $totalPages = $this->getTotalPages($itemsByPage);
@@ -97,19 +124,23 @@ class MenuController{
             if(isset($actualPage) && !empty($actualPage) && is_numeric($actualPage)){
                 $offset = $itemsByPage * ($actualPage-1);
                 $products = $this->productModel->getPage($itemsByPage, $offset);
-                $nextPage = $actualPage +1;
-                $previousPage = $actualPage -1;
+                
             }else{
                 $actualPage =1;
                 $products = $this->productModel->getPage($itemsByPage);
-                $nextPage = $actualPage +1;
-                $previousPage = $actualPage -1;
+                
             }
+            $nextPage = $actualPage +1;
+            $previousPage = $actualPage -1;
 
-           $category = $this->categoryModel->getAll();
-           $this->productView->renderMenu($products, $category, $totalPages, $actualPage ,$nextPage,$previousPage);
+            if($products){
+                $this->productView->renderMenu($products, $category, $totalPages, $actualPage ,$nextPage,$previousPage);
+
+            }else{
+                $this->errorView->render("Ups, no hay productos que mostrar", $category);
+            }
        }else{
-        //    $this->errorView->render("Se necesita numero de paginas");
+           $this->errorView->render("Se necesita numero de paginas",$category);
     }
 
     }

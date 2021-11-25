@@ -12,14 +12,14 @@ class ProductView{
         $this->smarty->display('templates/section/sectionHome.tpl');      
     }
     
-    function renderDetail($nombre,$categoria,$precio,$detalle,$id_producto,$img,$categorias){
-        $this->smarty->assign('categorias',$categorias);
-        $this->smarty->assign('nombre', $nombre);
-        $this->smarty->assign('categoria', $categoria);
-        $this->smarty->assign('precio', $precio);
-        $this->smarty->assign('detalle', $detalle);
-        $this->smarty->assign('id_producto', $id_producto);
-        $this->smarty->assign('imagen', $img);
+    function renderDetail($productAttributes,$id_product ,$categories){
+        $this->smarty->assign('categorias',$categories);
+        $this->smarty->assign('infoProducto', $productAttributes);
+        $this->smarty->assign('categoria', $productAttributes->nombre_categoria);
+        $this->smarty->assign('precio', $productAttributes->precio);
+        $this->smarty->assign('detalle', $productAttributes->detalle);
+        $this->smarty->assign('id_producto', $id_product);
+        $this->smarty->assign('imagen', $productAttributes->imagen);
         $this->smarty->display('templates/section/sectionDetail.tpl');
     }
     function renderMenu($producto, $categorias, $totalPages=null,$actualPage=1, $nextPage =null,$previousPage=null){ 
