@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-11-2021 a las 17:06:14
+-- Tiempo de generación: 25-11-2021 a las 22:50:18
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 8.0.6
 
@@ -59,22 +59,6 @@ CREATE TABLE `comentarios` (
   `puntuacion` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `comentarios`
---
-
-INSERT INTO `comentarios` (`id`, `id_producto`, `id_usuario`, `comentario`, `puntuacion`) VALUES
-(68, 12, 22, 'mg mg ', 4),
-(77, 16, 22, 'me gusto ', 5),
-(78, 15, 22, 'asdasd', 1),
-(79, 15, 22, 'me gusta ', 5),
-(80, 35, 22, 'Me empalague', 1),
-(131, 11, 22, 'Esta buenarda ', 5),
-(132, 12, 22, 'Carisima el aflojatuerca', 1),
-(133, 12, 22, 'pero rica', 5),
-(134, 17, 22, 'Esta buena', 4),
-(135, 17, 22, 'Maso', 2);
-
 -- --------------------------------------------------------
 
 --
@@ -95,15 +79,15 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`id_productos`, `nombre_producto`, `detalle`, `precio_producto`, `id_categorias_fk`, `imagen`) VALUES
-(11, 'Muzarella', 'rica ', 5000, 2, NULL),
-(12, 'Coca-Cola', 'Destapá felicidad', 500, 11, NULL),
-(13, '4 quesos', '<h5>Ingredientes:</h5> Roquefort, muzzarella, queso cremoso y sardo', 120, 10, NULL),
-(14, 'IPA', 'Alcohol 5% ', 500, 1, NULL),
-(15, 'Porter', 'La mas deliciosa', 500, 1, NULL),
-(16, 'Humita', 'Choclo y Salsa blanca', 120, 10, NULL),
-(17, 'Pizza Especial', 'Jamón y algo más... ', 1500, 2, 'img/619e337132f97.jpg'),
-(35, 'Doble Muzza', 'Mucha muzza', 500, 2, NULL),
-(55, 'Pizza Ananá', 'Rica', 1500, 2, 'img/619e322fcc9de.jpg');
+(59, 'Especial', 'Pizza elaborada a base de queso jamon y aceitunas', 1500, 2, NULL),
+(60, 'Muzzarella', 'rica rica', 1400, 2, 'img/61a003fa91ba4.jpg'),
+(61, 'Corona', 'muy rica y fresca', 500, 1, 'img/61a0044f0cbcf.jpg'),
+(62, 'Napolitana', 'rica rica', 600, 2, 'img/61a0046f0495c.jpg'),
+(63, 'humita', 'rica rica', 150, 10, 'img/61a00496c23b9.jpg'),
+(64, 'pepsi', 'gaseosa fresca', 50, 11, NULL),
+(65, 'coca cola', 'gaseosa distinta a la pepsi', 2000, 11, NULL),
+(66, 'jamon y queso', 'rica rica', 350, 10, 'img/61a004f3b1e27.jpg'),
+(67, 'carne', 'rica rica', 250, 10, 'img/61a005032cbac.jpg');
 
 -- --------------------------------------------------------
 
@@ -204,7 +188,7 @@ ALTER TABLE `comentarios`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id_productos` int(45) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id_productos` int(45) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -226,8 +210,8 @@ ALTER TABLE `usuarios`
 -- Filtros para la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
-  ADD CONSTRAINT `comentarios_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_productos`),
-  ADD CONSTRAINT `comentarios_ibfk_3` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `comentarios_ibfk_3` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `comentarios_ibfk_4` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_productos`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `producto`
