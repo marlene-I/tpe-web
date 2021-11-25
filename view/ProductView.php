@@ -29,9 +29,10 @@ class ProductView{
         $this->smarty->display('templates/section/sectionMenu.tpl');      
     }
 
-    function renderProdAdmin($categorias, $producto){
+    function renderProdAdmin($categorias, $producto, $empty=null){
         $this->smarty->assign('categorias', $categorias);
         $this->smarty->assign('productos', $producto);
+        $this->smarty->assign('no_products', $empty);
         $this->smarty->display('templates/section/sectionProductsAdmin.tpl');
     }
 

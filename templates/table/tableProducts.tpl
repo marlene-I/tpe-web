@@ -52,6 +52,7 @@
                     </form>
                 </tr>
                 {/if}
+                {if isset($productos) }
                 {foreach from=$productos item=producto}
                 <tr>
                     <div class="d-flex flex-row justify-content-center">
@@ -77,6 +78,7 @@
                     {/if}
                 </tr>
                 {/foreach}
+            {/if}
             </tbody>
         </table>
     </div>

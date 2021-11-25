@@ -32,7 +32,8 @@ class ProductAdminController
         if ($product) {
             $this->productView->renderProdAdmin($categories, $product);
         } else {
-            $this->errorView->render("Error 404");
+            $empty = true; 
+            $this->productView->renderProdAdmin($categories, $empty );
         }
     }
 
