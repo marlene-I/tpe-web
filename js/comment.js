@@ -21,7 +21,7 @@ let appComments = new Vue ({
     },
 )
 
-let userInfo_div = document.querySelector("#user-info-div"); //**CHA** 
+let userInfo_div = document.querySelector("#user-info-div");
 let id_producto = userInfo_div.getAttribute('id-producto'); //Captura el id de producto del que se quieren mostrar los comentarios
 let id_usuario = userInfo_div.getAttribute('id-usuario');
 const API_URL = "api/comentarios/productos/" +id_producto;

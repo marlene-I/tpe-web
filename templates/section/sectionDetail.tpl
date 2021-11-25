@@ -20,7 +20,7 @@
 
                 <div class=" d-flex  flex-column ">
                     {if isset($smarty.session.USER_ID)}
-                    <div class="list-group w-75 id=" user-info-div" id-producto={$id_producto}
+                    <div class="list-group w-75" id="user-info-div" id-producto={$id_producto}
                         id-usuario={$smarty.session.USER_ID}>
                         <h2 class="p-2 h2 pt-3 border-bottom text-center">Nuestros clientes dicen:</h2>
                         {include file = "vue/commentsVue.tpl"}
