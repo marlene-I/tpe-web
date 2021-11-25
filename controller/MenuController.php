@@ -29,7 +29,9 @@ class MenuController{
             $this->productView->renderHome($product, $categories);
 
         }else{
-            $this->errorView->render("Ups, no se encontraron productos", $categories);
+            $empty = true;
+            $this->productView->renderHome($product, $categories, $empty);
+
         }
     }
 
